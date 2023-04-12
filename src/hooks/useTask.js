@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { v4 as uuid } from 'uuid'
 import { addTask, updateTask } from '../redux/tasks/taskSlice'
 
 export const useTask = () => {
@@ -10,8 +9,8 @@ export const useTask = () => {
     description: '',
     completed: false
   })
+  const tasks = useSelector(state => state.tasks.taskList)
   const dispatch = useDispatch()
-  const tasks = useSelector(state => state.tasks)
   const navigate = useNavigate()
   const { id } = useParams()
 
@@ -32,10 +31,7 @@ export const useTask = () => {
         ...task
       }))
     } else {
-      dispatch(addTask({
-        id: uuid(),
-        ...task
-      }))
+      dispatch(addTask(task))
     }
 
     navigate('/')

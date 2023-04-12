@@ -1,21 +1,19 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './App.css'
+import { Home } from './pages/Home'
 import { TaskForm } from './components/TaskForm'
-import { TaskList } from './components/TaskList'
-import { Navbar } from './components/Navbar'
+import { Navigation } from './components/Navigation'
 
 function App () {
   return (
-    <div className='App'>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<TaskList />} />
-          <Route path='/create' element={<TaskForm />} />
-          <Route path='/edit/:id' element={<TaskForm />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Navigation />}>
+          <Route index element={<Home />} />
+          <Route path='task/create' element={<TaskForm />} />
+          <Route path='task/:id' element={<TaskForm />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

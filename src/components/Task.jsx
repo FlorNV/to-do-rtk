@@ -1,28 +1,36 @@
 import { useDispatch } from 'react-redux'
 import { deleteTask, toggleState } from '../redux/tasks/taskSlice'
 import { Link } from 'react-router-dom'
-import styled, { css } from 'styled-components'
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineCheckSquare, AiOutlineBorder } from 'react-icons/ai'
+import styled from 'styled-components'
 import { Button } from './styled/Button'
+import { IconStyled } from './styled/Icon'
 
 const TaskContainer = styled.div`
   display: flex;
-  width: 400px;
-  padding: 1rem;
-  border-radius: 6px;
-  background-color: rgba(255, 255, 255, 0.2);
-`
-
-const Div = styled.div`
-  width: ${({ width }) => width || '25%'};
-  ${({ width }) => width && css`
-    display: flex;
-    align-items: center;
-  `}
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  background-color: var(--light);
+  color: var(--dark);
 `
 
 const Content = styled.div`
-  width: 100%;
-  margin-left: 2rem;
+  flex: 1;
+  padding: 0 2rem;
+  overflow: hidden;
+
+  & p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`
+
+const Div = styled.div`
+  display: flex;
+  gap: 10px;
 `
 
 export const Task = ({ task }) => {
@@ -38,18 +46,22 @@ export const Task = ({ task }) => {
 
   return (
     <TaskContainer>
-      <Div width='75%'>
-        <Button onClick={() => handleToggle(task.id)}>
-          {task.completed ? '✅' : '🔲'}
-        </Button>
-        <Content>
-          <h3>{task.title}</h3>
-          <p>{task.description}</p>
-        </Content>
-      </Div>
+      <Button hasIcon checked={task.completed} onClick={() => handleToggle(task.id)}>
+        {task.completed
+          ? <IconStyled as={AiOutlineCheckSquare} />
+          : <IconStyled as={AiOutlineBorder} />}
+      </Button>
+      <Content>
+        <h3>{task.title}</h3>
+        <p>{task.description}</p>
+      </Content>
       <Div>
-        <Button onClick={() => handleDelete(task.id)}>🗑️</Button>
-        <Button as={Link} to={`/edit/${task.id}`}>✏️</Button>
+        <Button hasIcon onClick={() => handleDelete(task.id)}>
+          <IconStyled as={AiOutlineDelete} />
+        </Button>
+        <Button hasIcon as={Link} to={`task/${task.id}`}>
+          <IconStyled as={AiOutlineEdit} />
+        </Button>
       </Div>
     </TaskContainer>
   )

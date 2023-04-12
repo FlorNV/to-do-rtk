@@ -1,38 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Header = styled.header`
-  display: flex;
-  flex-direction: column;
-  margin: 0;
+  width: 100%;
+  background-color: #1a1b41;
+  color: #fff;
 `
 
-const Title = styled.h1`
-  font-size: 2rem;
-  text-align: center;
-`
-
-const Menu = styled.div`
-  display: flex;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  width: 300px;
-  height: 50px;
-  border-radius: 6px;
-  background-color: rgba(255, 255, 255, 0.2);
+const Logo = styled.div`
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 1rem;
 `
 
 export const Navbar = () => {
   return (
     <Header>
-      <Title>React + Redux Toolkit</Title>
-      <Menu>
-        <Link to='/'>🏠 Home </Link>|
-        <Link to='/create'>➕ Add task</Link>
-      </Menu>
+      <Logo>To Do</Logo>
     </Header>
   )
 }

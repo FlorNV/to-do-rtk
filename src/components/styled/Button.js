@@ -1,24 +1,20 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Button = styled.button`
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.4em;
-  margin-left: 8px;
-  font-size: 1em;
-  font-weight: 500;
+  border-radius: var(--border-radius);
+  border: 2px solid transparent;
+  padding: 0.6rem;
   font-family: inherit;
-  background-color: #1a1a1a;
-  color: #fff;
+  background-color: #1a1b41;
+  color: ${({ checked }) => checked ? '#baff29' : '#fff'};
   cursor: pointer;
   transition: border-color 0.25s;
+  ${({ hasIcon }) => hasIcon && css`
+    line-height: 0;
+    padding: 0.4rem;
+  `}
 
   &:hover {
-    border-color: #646cff;
-  }
-
-  &:focus,
-  &:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
+    border-color: #6290c3;
   }
 `
