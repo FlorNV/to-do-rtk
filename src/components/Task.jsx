@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineCheckSquare, AiOutlineBorder } from 'react-icons/ai'
 import styled from 'styled-components'
 // import { deleteTask, toggleState } from '../redux/tasks/taskSlice'
-import { toggleTask } from '../redux/lists/listsSlice'
+import { deleteTask, toggleTask } from '../redux/lists/listsSlice'
 
 import { Button } from './styled/Button'
 import { IconStyled } from './styled/Icon'
@@ -38,8 +38,8 @@ const Div = styled.div`
 export const Task = ({ task, listId }) => {
   const dispatch = useDispatch()
 
-  const handleDelete = (id) => {
-    // dispatch(deleteTask(id))
+  const handleDelete = (taskId) => {
+    dispatch(deleteTask({ listId, taskId }))
   }
 
   const handleToggle = (taskId) => {
