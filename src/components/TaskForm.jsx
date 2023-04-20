@@ -1,24 +1,28 @@
 import styled from 'styled-components'
 import { useTask } from '../hooks/useTask'
 import { Button } from './styled/Button'
-import { Title } from './styled/Title'
 
 const Container = styled.div`
-  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  margin: 0 2rem;
+  border-radius: var(--border-radius);
+  background-color: var(--light);
+  box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  position: relative;
+`
+
+export const Title = styled.h2`
+    font-size: var(--text-lg);
+    margin: 0;
 `
 
 const Form = styled.form`
-  width: 80%;
-  max-width: 400px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 2rem;
-  border-radius: var(--border-radius);
-  background-color: var(--light);
+  margin-top: 1rem;
+  gap: 1rem;
 `
 
 const Input = styled.input`
@@ -38,19 +42,19 @@ const Input = styled.input`
 
 const Textarea = styled(Input)`
   font-family: inherit;
-  resize: vertical;
-  height: 100px;
+  resize: none;
+  /* height: 100px;
   min-height: 20px;
-  max-height: 180px;
+  max-height: 180px; */
 `
 
 export const TaskForm = () => {
-  const { task, handleChange, handleSubmit, id } = useTask()
+  const { task, handleChange, handleSubmit } = useTask()
 
   return (
     <Container>
+      {/* <Title>New task</Title> */}
       <Form onSubmit={handleSubmit}>
-        <Title>New task</Title>
         <Input
           type='text'
           name='title'
@@ -66,7 +70,7 @@ export const TaskForm = () => {
           className='form-control'
           as='textarea'
         />
-        <Button type='submit'>{id ? 'Update task' : 'Add task'}</Button>
+        <Button type='submit'>Add task</Button>
       </Form>
     </Container>
   )

@@ -1,5 +1,4 @@
-import { TaskList } from '../components/TaskList'
-import { Filters } from '../components/Filters'
+import { TaskList, Filters } from '../components/index'
 import styled from 'styled-components'
 
 const Flex = styled.div`

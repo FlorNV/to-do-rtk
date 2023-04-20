@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-import { addTask, updateTask } from '../redux/tasks/taskSlice'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { addTask } from '../redux/lists/listsSlice'
 
 export const useTask = () => {
   const [task, setTask] = useState({
@@ -9,9 +9,7 @@ export const useTask = () => {
     description: '',
     completed: false
   })
-  const tasks = useSelector(state => state.tasks.taskList)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const { id } = useParams()
 
   const handleChange = (event) => {
@@ -24,27 +22,14 @@ export const useTask = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    dispatch(addTask({ listId: id, task }))
 
-    if (id) {
-      dispatch(updateTask({
-        id,
-        ...task
-      }))
-    } else {
-      dispatch(addTask(task))
-    }
-
-    navigate('/')
+    setTask({
+      title: '',
+      description: '',
+      completed: false
+    })
   }
 
-  useEffect(() => {
-    if (id) {
-      const taskFound = tasks.find(task => task.id === id)
-      if (taskFound) {
-        setTask(taskFound)
-      }
-    }
-  }, [])
-
-  return { task, handleChange, handleSubmit, id }
+  return { task, handleChange, handleSubmit }
 }

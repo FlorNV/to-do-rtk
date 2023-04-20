@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
 
 export const Button = styled.button`
+  width: max-content;
   border-radius: var(--border-radius);
   border: 2px solid transparent;
   padding: 0.6rem;
@@ -9,9 +10,9 @@ export const Button = styled.button`
   color: ${({ checked }) => checked ? '#baff29' : '#fff'};
   cursor: pointer;
   transition: border-color 0.25s;
-  ${({ hasIcon }) => hasIcon && css`
+  ${({ icon }) => icon && css`
     line-height: 0;
-    padding: 0.4rem;
+    padding: 0.2rem;
   `}
 
   &:hover {

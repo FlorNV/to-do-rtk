@@ -46,7 +46,7 @@ export const Task = ({ task }) => {
 
   return (
     <TaskContainer>
-      <Button hasIcon checked={task.completed} onClick={() => handleToggle(task.id)}>
+      <Button icon='true' checked={task.completed} onClick={() => handleToggle(task.id)}>
         {task.completed
           ? <IconStyled as={AiOutlineCheckSquare} />
           : <IconStyled as={AiOutlineBorder} />}
@@ -56,10 +56,10 @@ export const Task = ({ task }) => {
         <p>{task.description}</p>
       </Content>
       <Div>
-        <Button hasIcon onClick={() => handleDelete(task.id)}>
+        <Button icon='true' onClick={() => handleDelete(task.id)}>
           <IconStyled as={AiOutlineDelete} />
         </Button>
-        <Button hasIcon as={Link} to={`task/${task.id}`}>
+        <Button icon='true' as={Link} to={`task/${task.id}`}>
           <IconStyled as={AiOutlineEdit} />
         </Button>
       </Div>

@@ -1,6 +1,11 @@
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { AiOutlineHome, AiOutlinePlus, AiOutlineExclamationCircle } from 'react-icons/ai'
+import {
+  AiOutlineHome,
+  AiOutlinePlus,
+  AiOutlineExclamationCircle,
+  AiOutlineUnorderedList
+} from 'react-icons/ai'
 import styled from 'styled-components'
 import { IconStyled } from './styled/Icon'
 
@@ -48,22 +53,39 @@ const LinkStyled = styled(NavLink)`
   }
 `
 
+const Line = styled.div`
+  height: 1px;
+  margin: 10px 20px;
+  background-color: rgba(var(--dark-rgb), 0.2);
+`
+
 export const Sidebar = () => {
   const tasks = useSelector((state) => state.tasks.taskList)
+  const lists = useSelector(state => state.lists)
 
   return (
     <Container>
       <Title>Menu</Title>
       <Menu>
-        <LinkStyled to='/'><IconStyled as={AiOutlineHome} />
+        <LinkStyled to='/'>
+          <IconStyled as={AiOutlineHome} />
           Tasks<span>{tasks.length}</span>
         </LinkStyled>
-        <LinkStyled to='task/create'><IconStyled as={AiOutlinePlus} />
-          Add task
+        <LinkStyled to='list/create'>
+          <IconStyled as={AiOutlinePlus} />
+          Add list
         </LinkStyled>
-        <LinkStyled to='task/important'><IconStyled as={AiOutlineExclamationCircle} />
+        <LinkStyled to='task/important'>
+          <IconStyled as={AiOutlineExclamationCircle} />
           Important
         </LinkStyled>
+        <Line />
+        {lists.map(list =>
+          <LinkStyled key={list.id} to={`list/${list.id}`}>
+            <IconStyled as={AiOutlineUnorderedList} />
+            {list.title}
+            <span>{list.taskList.length}</span>
+          </LinkStyled>)}
       </Menu>
     </Container>
   )
