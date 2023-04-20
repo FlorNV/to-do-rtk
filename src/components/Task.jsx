@@ -1,8 +1,10 @@
 import { useDispatch } from 'react-redux'
-import { deleteTask, toggleState } from '../redux/tasks/taskSlice'
 import { Link } from 'react-router-dom'
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineCheckSquare, AiOutlineBorder } from 'react-icons/ai'
 import styled from 'styled-components'
+// import { deleteTask, toggleState } from '../redux/tasks/taskSlice'
+import { toggleTask } from '../redux/lists/listsSlice'
+
 import { Button } from './styled/Button'
 import { IconStyled } from './styled/Icon'
 
@@ -33,15 +35,16 @@ const Div = styled.div`
   gap: 10px;
 `
 
-export const Task = ({ task }) => {
+export const Task = ({ task, listId }) => {
   const dispatch = useDispatch()
 
   const handleDelete = (id) => {
-    dispatch(deleteTask(id))
+    // dispatch(deleteTask(id))
   }
 
-  const handleToggle = (id) => {
-    dispatch(toggleState(id))
+  const handleToggle = (taskId) => {
+    console.log(listId)
+    dispatch(toggleTask({ listId, taskId }))
   }
 
   return (

@@ -105,12 +105,12 @@ export const listsSlice = createSlice({
       }
     },
     toggleTask: (state, action) => {
-      const { listId, task } = action.payload
+      const { listId, taskId } = action.payload
       const listFound = state.find(list => list.id === listId)
       if (listFound) {
-        const taskFound = listFound.taskList.find(taskItem => taskItem.id === task.id)
+        const taskFound = listFound.taskList.find(task => task.id === taskId)
         if (taskFound) {
-          taskFound.completed = !task.completed
+          taskFound.completed = !taskFound.completed
         }
       }
     }
