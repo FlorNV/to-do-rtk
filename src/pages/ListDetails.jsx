@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { AiOutlineCheck, AiOutlineUnorderedList } from 'react-icons/ai'
 import styled from 'styled-components'
+import { NotFound } from './index'
 import { TaskForm, TaskList } from '../components/index'
 import { updateList } from '../redux/lists/listsSlice'
 import { useList } from '../hooks/useList'
@@ -62,27 +63,31 @@ export const ListDetails = () => {
 
   return (
     <Flex>
-      <Div>
-        <AiOutlineUnorderedList />
-        {showInput
-          ? <Form onSubmit={handleSubmit}>
-            <Input
-              type='text'
-              name='title'
-              value={listTitle}
-              onChange={handleChange}
-              size={list.title.length}
-            />
-            <Button type='submit' icon='true'>
-              <IconStyled as={AiOutlineCheck} />
-            </Button>
-          </Form>
-          : <Title onDoubleClick={handleSubmit}>
-            {list.title}
-            </Title>}
-      </Div>
-      <TaskForm />
-      <TaskList listId={list.id} taskList={list.taskList} />
+      {list
+        ? <>
+          <Div>
+            <AiOutlineUnorderedList />
+            {showInput
+              ? <Form onSubmit={handleSubmit}>
+                <Input
+                  type='text'
+                  name='title'
+                  value={listTitle}
+                  onChange={handleChange}
+                  size={list.title.length}
+                />
+                <Button type='submit' icon='true'>
+                  <IconStyled as={AiOutlineCheck} />
+                </Button>
+                </Form>
+              : <Title onDoubleClick={handleSubmit}>
+                {list.title}
+                </Title>}
+          </Div>
+          <TaskForm />
+          <TaskList listId={list.id} taskList={list.taskList} />
+        </>
+        : <NotFound />}
     </Flex>
   )
 }

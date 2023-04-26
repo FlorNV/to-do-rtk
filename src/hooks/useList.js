@@ -5,7 +5,7 @@ import { addList } from '../redux/lists/listsSlice'
 
 export const useList = () => {
   const [listTitle, setListTitle] = useState('')
-  const [list, setList] = useState({})
+  const [list, setList] = useState(null)
   const [isSubmit, setIsSubmit] = useState(false)
   const lists = useSelector(state => state.lists)
   const dispatch = useDispatch()
@@ -18,14 +18,7 @@ export const useList = () => {
     event.preventDefault()
     setIsSubmit(true)
 
-    // if (id) {
-    //   dispatch(updateList({
-    //     id,
-    //     ...list
-    //   }))
-    // } else {
     dispatch(addList({ title: listTitle }))
-    // }
   }
 
   useEffect(() => {
@@ -40,10 +33,12 @@ export const useList = () => {
   useEffect(() => {
     if (id) {
       const listFound = lists.find(list => list.id === id)
-      setList(listFound)
-      setListTitle(listFound.title)
+      if (listFound) {
+        setList(listFound)
+        setListTitle(listFound.title)
+      }
     }
   }, [id, lists])
 
-  return { listTitle, list, handleChange, handleSubmit }
+  return { id, listTitle, list, handleChange, handleSubmit }
 }

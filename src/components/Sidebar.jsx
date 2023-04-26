@@ -60,7 +60,7 @@ const Line = styled.div`
 `
 
 export const Sidebar = () => {
-  const tasks = useSelector((state) => state.tasks.taskList)
+  // const tasks = useSelector((state) => state.tasks.taskList)
   const lists = useSelector(state => state.lists)
 
   return (
@@ -69,7 +69,7 @@ export const Sidebar = () => {
       <Menu>
         <LinkStyled to='/'>
           <IconStyled as={AiOutlineHome} />
-          Tasks<span>{tasks.length}</span>
+          {/* Tasks<span>{tasks.length}</span> */}
         </LinkStyled>
         <LinkStyled to='list/create'>
           <IconStyled as={AiOutlinePlus} />

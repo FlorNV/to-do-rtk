@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineCheckSquare, AiOutlineBorder } from 'react-icons/ai'
 import styled from 'styled-components'
 // import { deleteTask, toggleState } from '../redux/tasks/taskSlice'
-import { deleteTask, toggleTask } from '../redux/lists/listsSlice'
+import { deleteTask, toggleTask, updateTask } from '../redux/lists/listsSlice'
 
 import { Button } from './styled/Button'
 import { IconStyled } from './styled/Icon'
+import { selectedTask } from '../redux/tasks/taskSlice'
 
 const TaskContainer = styled.div`
   display: flex;
@@ -38,18 +39,21 @@ const Div = styled.div`
 export const Task = ({ task, listId }) => {
   const dispatch = useDispatch()
 
-  const handleDelete = (taskId) => {
-    dispatch(deleteTask({ listId, taskId }))
+  const handleDelete = () => {
+    dispatch(deleteTask({ listId, taskId: task.id }))
   }
 
-  const handleToggle = (taskId) => {
-    console.log(listId)
-    dispatch(toggleTask({ listId, taskId }))
+  const handleSelected = () => {
+    dispatch(selectedTask(task))
+  }
+
+  const handleToggle = () => {
+    dispatch(toggleTask({ listId, taskId: task.id }))
   }
 
   return (
     <TaskContainer>
-      <Button icon='true' checked={task.completed} onClick={() => handleToggle(task.id)}>
+      <Button icon='true' checked={task.completed} onClick={handleToggle}>
         {task.completed
           ? <IconStyled as={AiOutlineCheckSquare} />
           : <IconStyled as={AiOutlineBorder} />}
@@ -59,10 +63,13 @@ export const Task = ({ task, listId }) => {
         <p>{task.description}</p>
       </Content>
       <Div>
-        <Button icon='true' onClick={() => handleDelete(task.id)}>
+        <Button icon='true' onClick={handleDelete}>
           <IconStyled as={AiOutlineDelete} />
         </Button>
-        <Button icon='true' as={Link} to={`task/${task.id}`}>
+        {/* <Button icon='true' as={Link} to={`task/${task.id}`}>
+          <IconStyled as={AiOutlineEdit} />
+        </Button> */}
+        <Button icon='true' onClick={handleSelected}>
           <IconStyled as={AiOutlineEdit} />
         </Button>
       </Div>

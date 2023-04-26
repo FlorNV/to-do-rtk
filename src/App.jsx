@@ -9,7 +9,7 @@ function App () {
         <Route path='/' element={<Navigation />}>
           <Route index element={<Home />} />
           <Route path='task/create' element={<TaskForm />} />
-          <Route path='task/:id' element={<TaskForm />} />
+          {/* <Route path='task/:id' element={<TaskForm />} /> */}
           <Route path='task/important' element={<Home />} />
           <Route path='list/create' element={<ListForm />} />
           <Route path='list/:id' element={<ListDetails />} />

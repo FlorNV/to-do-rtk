@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 const Header = styled.header`
   width: 100%;
-  background-color: #1a1b41;
-  color: #fff;
+  background-color: var(--dark);
+  color: var(--white);
 `
 
 const Logo = styled.div`

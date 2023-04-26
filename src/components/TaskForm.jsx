@@ -49,7 +49,7 @@ const Textarea = styled(Input)`
 `
 
 export const TaskForm = () => {
-  const { task, handleChange, handleSubmit } = useTask()
+  const { task, isEditing, handleChange, handleSubmit } = useTask()
 
   return (
     <Container>
@@ -67,10 +67,9 @@ export const TaskForm = () => {
           placeholder='Description'
           onChange={handleChange}
           value={task.description}
-          className='form-control'
           as='textarea'
         />
-        <Button type='submit'>Add task</Button>
+        <Button type='submit'>{!isEditing ? 'Add task' : 'Update task'}</Button>
       </Form>
     </Container>
   )

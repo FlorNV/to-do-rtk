@@ -11,15 +11,15 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  --primary: #6290c3;
-  --secondary: #c2e7da;
-  --light: #f1ffe7;
-  --white: #fff;
-  --dark: #1a1b41;
-  --green: #baff29;
+  --primary: #273469;
+  --secondary: #C5D5EA;
+  --light: #FAFAFF;
+  --white: #FFFFFF;
+  --dark: #30343F;
+  --green: #BAFF29;
 
-  --primary-rgb: 98, 144, 195;
-  --dark-rgb: 26, 27, 65;
+  --primary-rgb: 39, 52, 105;
+  --dark-rgb: 48, 52, 63;
   --white-rgb: 255, 255, 255;
 
   --border-radius: 6px;

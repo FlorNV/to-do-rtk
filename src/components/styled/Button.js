@@ -6,8 +6,8 @@ export const Button = styled.button`
   border: 2px solid transparent;
   padding: 0.6rem;
   font-family: inherit;
-  background-color: #1a1b41;
-  color: ${({ checked }) => checked ? '#baff29' : '#fff'};
+  background-color: var(--dark);
+  color: ${({ checked }) => checked ? 'var(--green)' : 'var(--white)'};
   cursor: pointer;
   transition: border-color 0.25s;
   ${({ icon }) => icon && css`
