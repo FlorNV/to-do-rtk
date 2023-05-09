@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { v4 as uuid } from 'uuid'
 
 const initialState = [
@@ -10,36 +10,36 @@ const initialState = [
         id: '1',
         title: 'task 1',
         description: 'Labore mollit nulla officia minim aute irure. Veniam anim sint culpa cupidatat velit. Id velit labore quis est. Id quis tempor non culpa amet elit id eiusmod aliqua enim.',
-        completed: false
-        // important: false
+        completed: false,
+        important: true
       },
       {
         id: '2',
         title: 'task 2',
         description: 'task 2 description',
-        completed: false
-        // important: false
+        completed: false,
+        important: false
       },
       {
         id: '3',
         title: 'task 3',
         description: 'task 3 description',
-        completed: false
-        // important: false
+        completed: false,
+        important: true
       },
       {
         id: '4',
         title: 'task 4',
         description: 'task 4 description',
-        completed: false
-        // important: false
+        completed: false,
+        important: false
       },
       {
         id: '5',
         title: 'task 5',
         description: 'task 5 description',
-        completed: false
-        // important: false
+        completed: false,
+        important: false
       }
     ]
   }
@@ -113,9 +113,35 @@ export const listsSlice = createSlice({
           taskFound.completed = !taskFound.completed
         }
       }
+    },
+    toggleTaskImportant: (state, action) => {
+      const { listId, taskId } = action.payload
+      const listFound = state.find(list => list.id === listId)
+      if (listFound) {
+        const taskFound = listFound.taskList.find(task => task.id === taskId)
+        if (taskFound) {
+          taskFound.important = !taskFound.important
+        }
+      }
     }
   }
 })
+
+const selectLists = state => state.lists
+
+export const selectListById = (listId) => createSelector(
+  selectLists,
+  lists => lists.find(list => list.id === listId)
+)
+
+export const selectImportantTasks = () => createSelector(
+  selectLists,
+  lists => {
+    const allTasks = lists.flatMap(list => list.taskList)
+    const importantTasks = allTasks.filter(task => task.important)
+    return importantTasks
+  }
+)
 
 export const {
   addList,
@@ -124,7 +150,8 @@ export const {
   addTask,
   deleteTask,
   updateTask,
-  toggleTask
+  toggleTask,
+  toggleTaskImportant
 } = listsSlice.actions
 
 export default listsSlice.reducer

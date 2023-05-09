@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Navigation, TaskForm, ListForm } from './components/index'
-import { Home, ListDetails } from './pages/index'
+import { Home, Importants, ListDetails } from './pages/index'
 
 function App () {
   return (
@@ -10,7 +10,7 @@ function App () {
           <Route index element={<Home />} />
           <Route path='task/create' element={<TaskForm />} />
           {/* <Route path='task/:id' element={<TaskForm />} /> */}
-          <Route path='task/important' element={<Home />} />
+          <Route path='task/important' element={<Importants />} />
           <Route path='list/create' element={<ListForm />} />
           <Route path='list/:id' element={<ListDetails />} />
         </Route>

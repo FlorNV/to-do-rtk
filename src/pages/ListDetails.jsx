@@ -24,7 +24,7 @@ const Div = styled.div`
   gap: 10px;
 `
 
-const Title = styled.span`
+const ListTitle = styled.span`
   font-weight: 600;
   margin: 0;
 `
@@ -79,10 +79,8 @@ export const ListDetails = () => {
                 <Button type='submit' icon='true'>
                   <IconStyled as={AiOutlineCheck} />
                 </Button>
-                </Form>
-              : <Title onDoubleClick={handleSubmit}>
-                {list.title}
-                </Title>}
+              </Form>
+              : <ListTitle onDoubleClick={handleSubmit}>{list.title}</ListTitle>}
           </Div>
           <TaskForm />
           <TaskList listId={list.id} taskList={list.taskList} />

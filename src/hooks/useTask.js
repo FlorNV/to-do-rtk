@@ -33,6 +33,7 @@ export const useTask = () => {
       dispatch(removeSelectedTask())
     }
 
+    setIsEditing(false)
     setTask({
       title: '',
       description: '',

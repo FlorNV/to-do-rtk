@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { AiOutlineDelete, AiOutlineEdit, AiOutlineCheckSquare, AiOutlineBorder } from 'react-icons/ai'
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineCheckSquare, AiOutlineBorder, AiOutlineExclamationCircle } from 'react-icons/ai'
 import styled from 'styled-components'
 // import { deleteTask, toggleState } from '../redux/tasks/taskSlice'
-import { deleteTask, toggleTask, updateTask } from '../redux/lists/listsSlice'
+import { deleteTask, toggleTask, toggleTaskImportant, updateTask } from '../redux/lists/listsSlice'
 
 import { Button } from './styled/Button'
 import { IconStyled } from './styled/Icon'
@@ -51,6 +51,10 @@ export const Task = ({ task, listId }) => {
     dispatch(toggleTask({ listId, taskId: task.id }))
   }
 
+  const handleToggleImportant = () => {
+    dispatch(toggleTaskImportant({ listId, taskId: task.id }))
+  }
+
   return (
     <TaskContainer>
       <Button icon='true' checked={task.completed} onClick={handleToggle}>
@@ -71,6 +75,9 @@ export const Task = ({ task, listId }) => {
         </Button> */}
         <Button icon='true' onClick={handleSelected}>
           <IconStyled as={AiOutlineEdit} />
+        </Button>
+        <Button icon='true' checked={task.important} onClick={handleToggleImportant}>
+          <IconStyled as={AiOutlineExclamationCircle} />
         </Button>
       </Div>
     </TaskContainer>

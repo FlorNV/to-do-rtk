@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { addList } from '../redux/lists/listsSlice'
+import { addList, selectListById } from '../redux/lists/listsSlice'
 
 export const useList = () => {
+  const { id } = useParams()
   const [listTitle, setListTitle] = useState('')
   const [list, setList] = useState(null)
   const [isSubmit, setIsSubmit] = useState(false)
   const lists = useSelector(state => state.lists)
+  const listFound = useSelector(selectListById(id))
   const dispatch = useDispatch()
-  const { id } = useParams()
   const navigate = useNavigate()
 
   const handleChange = (event) => setListTitle(event.target.value)
@@ -32,7 +33,6 @@ export const useList = () => {
 
   useEffect(() => {
     if (id) {
-      const listFound = lists.find(list => list.id === id)
       if (listFound) {
         setList(listFound)
         setListTitle(listFound.title)

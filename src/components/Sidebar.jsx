@@ -8,6 +8,7 @@ import {
 } from 'react-icons/ai'
 import styled from 'styled-components'
 import { IconStyled } from './styled/Icon'
+import { selectImportantTasks } from '../redux/lists/listsSlice'
 
 const Container = styled.div`
   width: 30%;
@@ -62,6 +63,7 @@ const Line = styled.div`
 export const Sidebar = () => {
   // const tasks = useSelector((state) => state.tasks.taskList)
   const lists = useSelector(state => state.lists)
+  const importantList = useSelector(selectImportantTasks())
 
   return (
     <Container>
@@ -78,6 +80,7 @@ export const Sidebar = () => {
         <LinkStyled to='task/important'>
           <IconStyled as={AiOutlineExclamationCircle} />
           Important
+          <span>{importantList.length}</span>
         </LinkStyled>
         <Line />
         {lists.map(list =>
