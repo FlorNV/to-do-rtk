@@ -12,7 +12,7 @@ export const Home = () => {
   return (
     <Flex>
       <Filters />
-      <TaskList />
+      {/* <TaskList list={} /> */}
     </Flex>
   )
 }

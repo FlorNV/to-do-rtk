@@ -40,12 +40,14 @@ const TaskContainer = styled.div`
 //   )
 // }
 
-export const TaskList = ({ listId, taskList }) => {
+export const TaskList = ({ list }) => {
+  const { id, taskList } = list
+
   return (
     <Tasks>
       <TaskContainer>
         {taskList?.map((task) => (
-          <Task key={task.id} task={task} listId={listId} />
+          <Task key={task.id} task={task} listId={id} />
         ))}
       </TaskContainer>
     </Tasks>

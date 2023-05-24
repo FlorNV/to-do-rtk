@@ -1,9 +1,7 @@
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineCheckSquare, AiOutlineBorder, AiOutlineExclamationCircle } from 'react-icons/ai'
 import styled from 'styled-components'
-// import { deleteTask, toggleState } from '../redux/tasks/taskSlice'
-import { deleteTask, toggleTask, toggleTaskImportant, updateTask } from '../redux/lists/listsSlice'
+import { deleteTask, toggleTask, toggleTaskImportant } from '../redux/lists/listsSlice'
 
 import { Button } from './styled/Button'
 import { IconStyled } from './styled/Icon'
@@ -70,9 +68,6 @@ export const Task = ({ task, listId }) => {
         <Button icon='true' onClick={handleDelete}>
           <IconStyled as={AiOutlineDelete} />
         </Button>
-        {/* <Button icon='true' as={Link} to={`task/${task.id}`}>
-          <IconStyled as={AiOutlineEdit} />
-        </Button> */}
         <Button icon='true' onClick={handleSelected}>
           <IconStyled as={AiOutlineEdit} />
         </Button>

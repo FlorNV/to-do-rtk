@@ -79,12 +79,12 @@ export const ListDetails = () => {
                 <Button type='submit' icon='true'>
                   <IconStyled as={AiOutlineCheck} />
                 </Button>
-              </Form>
+                </Form>
               : <ListTitle onDoubleClick={handleSubmit}>{list.title}</ListTitle>}
           </Div>
           <TaskForm />
-          <TaskList listId={list.id} taskList={list.taskList} />
-        </>
+          <TaskList list={list} />
+          </>
         : <NotFound />}
     </Flex>
   )
