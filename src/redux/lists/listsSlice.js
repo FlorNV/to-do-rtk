@@ -134,6 +134,14 @@ export const selectListById = (listId) => createSelector(
   lists => lists.find(list => list.id === listId)
 )
 
+export const selectAllTasks = () => createSelector(
+  selectLists,
+  lists => {
+    return lists.flatMap(list => list.taskList.map(task =>
+      ({ ...task, listId: list.id })))
+  }
+)
+
 export const selectImportantTasks = () => createSelector(
   selectLists,
   lists => {

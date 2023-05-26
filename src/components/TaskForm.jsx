@@ -14,8 +14,8 @@ const Container = styled.div`
 `
 
 export const Title = styled.h2`
-    font-size: var(--text-lg);
-    margin: 0;
+  font-size: var(--text-lg);
+  margin: 0;
 `
 
 const Form = styled.form`

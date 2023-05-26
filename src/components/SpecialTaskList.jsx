@@ -12,12 +12,12 @@ const TaskContainer = styled.div`
   margin: 1rem 1rem 2rem 2rem;
 `
 
-export const ImportantTaskList = ({ taskList }) => {
+export const SpecialTaskList = ({ taskList }) => {
   return (
     <Tasks>
       <TaskContainer>
         {taskList?.map((task) => (
-          <Task key={task.id} task={task} listId={task.listId} />
+          <Task key={task.id} task={task} listId={task.listId} showList />
         ))}
       </TaskContainer>
     </Tasks>

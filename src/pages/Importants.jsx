@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { selectImportantTasks } from '../redux/lists/listsSlice'
 import { AiOutlineUnorderedList } from 'react-icons/ai'
-import { ImportantTaskList } from '../components/index'
+import { SpecialTaskList } from '../components/index'
 
 const Flex = styled.div`
   flex: 1;
@@ -34,7 +34,7 @@ export const Importants = () => {
         <ListTitle>Importants</ListTitle>
       </Div>
       {/* <TaskForm /> */}
-      <ImportantTaskList taskList={importantList} />
+      <SpecialTaskList taskList={importantList} />
     </Flex>
   )
 }

@@ -1,11 +1,21 @@
-import { useDispatch } from 'react-redux'
-import { AiOutlineDelete, AiOutlineEdit, AiOutlineCheckSquare, AiOutlineBorder, AiOutlineExclamationCircle } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  AiOutlineDelete,
+  AiOutlineEdit,
+  AiOutlineCheckSquare,
+  AiOutlineBorder,
+  AiOutlineExclamationCircle
+} from 'react-icons/ai'
 import styled from 'styled-components'
-import { deleteTask, toggleTask, toggleTaskImportant } from '../redux/lists/listsSlice'
-
 import { Button } from './styled/Button'
 import { IconStyled } from './styled/Icon'
 import { selectedTask } from '../redux/tasks/taskSlice'
+import {
+  deleteTask,
+  selectListById,
+  toggleTask,
+  toggleTaskImportant
+} from '../redux/lists/listsSlice'
 
 const TaskContainer = styled.div`
   display: flex;
@@ -21,12 +31,23 @@ const Content = styled.div`
   flex: 1;
   padding: 0 2rem;
   overflow: hidden;
+`
 
-  & p {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+const Title = styled.h3`
+  font-size: var(--text-lg);
+  margin: 0.5rem 0;
+`
+
+const Description = styled.p`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+`
+
+const Small = styled.small`
+  font-size: var(--text-xs);
+  color: rgba(var(--primary-rgb), 0.8);
 `
 
 const Div = styled.div`
@@ -34,8 +55,9 @@ const Div = styled.div`
   gap: 10px;
 `
 
-export const Task = ({ task, listId }) => {
+export const Task = ({ task, listId, showList = false }) => {
   const dispatch = useDispatch()
+  const list = useSelector(selectListById(listId))
 
   const handleDelete = () => {
     dispatch(deleteTask({ listId, taskId: task.id }))
@@ -61,8 +83,9 @@ export const Task = ({ task, listId }) => {
           : <IconStyled as={AiOutlineBorder} />}
       </Button>
       <Content>
-        <h3>{task.title}</h3>
-        <p>{task.description}</p>
+        <Title>{task.title}</Title>
+        <Description>{task.description}</Description>
+        {showList && <Small>{list.title}</Small>}
       </Content>
       <Div>
         <Button icon='true' onClick={handleDelete}>

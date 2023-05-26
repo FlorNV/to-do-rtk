@@ -1,6 +1,9 @@
 import styled from 'styled-components'
+import { Searcher } from './index'
 
 const Header = styled.header`
+  display: flex;
+  align-items: center;
   width: 100%;
   background-color: var(--dark);
   color: var(--white);
@@ -16,6 +19,7 @@ export const Navbar = () => {
   return (
     <Header>
       <Logo>To Do</Logo>
+      <Searcher />
     </Header>
   )
 }
