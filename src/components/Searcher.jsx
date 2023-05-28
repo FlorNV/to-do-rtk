@@ -47,7 +47,7 @@ export const Searcher = () => {
     setSearching(true)
     const query = event.target.value
     setQuery(query)
-    navigate(`/search/${query}`)
+    navigate(`search/${query}`)
   }
 
   const handleReset = () => {

@@ -9,19 +9,20 @@ import { useList } from '../hooks/useList'
 import { Button } from '../components/styled/Button'
 import { IconStyled } from '../components/styled/Icon'
 
-const Flex = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`
-
-const Div = styled.div`
+const ToolBar = styled.div`
   font-size: var(--text-xxl);
   margin: 1rem 2rem;
   display: flex;
   align-items: center;
   gap: 10px;
+  position: relative;
+`
+
+const TasksContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
 `
 
 const ListTitle = styled.span`
@@ -62,10 +63,10 @@ export const ListDetails = () => {
   }
 
   return (
-    <Flex>
+    <>
       {list
         ? <>
-          <Div>
+          <ToolBar>
             <AiOutlineUnorderedList />
             {showInput
               ? <Form onSubmit={handleSubmit}>
@@ -81,11 +82,13 @@ export const ListDetails = () => {
                 </Button>
               </Form>
               : <ListTitle onDoubleClick={handleSubmit}>{list.title}</ListTitle>}
-          </Div>
-          <TaskForm />
-          <TaskList list={list} />
+          </ToolBar>
+          <TasksContainer>
+            <TaskForm />
+            <TaskList list={list} />
+          </TasksContainer>
         </>
         : <NotFound />}
-    </Flex>
+    </>
   )
 }

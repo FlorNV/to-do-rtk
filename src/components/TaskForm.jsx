@@ -10,12 +10,8 @@ const Container = styled.div`
   border-radius: var(--border-radius);
   background-color: var(--light);
   box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-  position: relative;
-`
-
-export const Title = styled.h2`
-  font-size: var(--text-lg);
-  margin: 0;
+  
+  z-index: 2;
 `
 
 const Form = styled.form`
@@ -53,7 +49,6 @@ export const TaskForm = () => {
 
   return (
     <Container>
-      {/* <Title>New task</Title> */}
       <Form onSubmit={handleSubmit}>
         <Input
           type='text'

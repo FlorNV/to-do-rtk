@@ -2,12 +2,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   AiOutlineDelete,
   AiOutlineEdit,
-  AiOutlineCheckSquare,
-  AiOutlineBorder,
-  AiOutlineExclamationCircle
+  AiFillCheckCircle,
+  AiOutlineExclamationCircle,
+  AiFillExclamationCircle
 } from 'react-icons/ai'
+import { RxCircle } from 'react-icons/rx'
+
 import styled from 'styled-components'
-import { Button } from './styled/Button'
+import { ButtonIcon } from './styled/Button'
 import { IconStyled } from './styled/Icon'
 import { selectedTask } from '../redux/tasks/taskSlice'
 import {
@@ -77,26 +79,28 @@ export const Task = ({ task, listId, showList = false }) => {
 
   return (
     <TaskContainer>
-      <Button icon='true' checked={task.completed} onClick={handleToggle}>
+      <ButtonIcon onClick={handleToggle}>
         {task.completed
-          ? <IconStyled as={AiOutlineCheckSquare} />
-          : <IconStyled as={AiOutlineBorder} />}
-      </Button>
+          ? <IconStyled as={AiFillCheckCircle} />
+          : <IconStyled as={RxCircle} />}
+      </ButtonIcon>
       <Content>
         <Title>{task.title}</Title>
         <Description>{task.description}</Description>
         {showList && <Small>{list.title}</Small>}
       </Content>
       <Div>
-        <Button icon='true' onClick={handleDelete}>
+        <ButtonIcon onClick={handleDelete}>
           <IconStyled as={AiOutlineDelete} />
-        </Button>
-        <Button icon='true' onClick={handleSelected}>
+        </ButtonIcon>
+        <ButtonIcon onClick={handleSelected}>
           <IconStyled as={AiOutlineEdit} />
-        </Button>
-        <Button icon='true' checked={task.important} onClick={handleToggleImportant}>
-          <IconStyled as={AiOutlineExclamationCircle} />
-        </Button>
+        </ButtonIcon>
+        <ButtonIcon onClick={handleToggleImportant}>
+          {task.important
+            ? <IconStyled as={AiFillExclamationCircle} />
+            : <IconStyled as={AiOutlineExclamationCircle} />}
+        </ButtonIcon>
       </Div>
     </TaskContainer>
   )

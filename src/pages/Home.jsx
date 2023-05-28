@@ -28,7 +28,7 @@ export const Home = () => {
   const [inbox] = lists
 
   return (
-    <Flex>
+    <>
       <Div>
         <AiOutlineHome />
         <ListTitle>Tasks</ListTitle>
@@ -36,6 +36,6 @@ export const Home = () => {
       {/* <Filters /> */}
       <TaskForm />
       <TaskList list={inbox} />
-    </Flex>
+    </>
   )
 }

@@ -13,9 +13,9 @@ function App () {
           <Route path='create' element={<ListForm />} />
           <Route path=':id' element={<ListDetails />} />
           {/* <Route path='task/create' element={<TaskForm />} /> */}
-        </Route>
-        <Route path='/search' element={<TasksFoundList />}>
-          <Route path=':query' element={<TasksFoundList />} />
+          <Route path='search' element={<TasksFoundList />}>
+            <Route path=':query' el ement={<TasksFoundList />} />
+          </Route>
         </Route>
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>

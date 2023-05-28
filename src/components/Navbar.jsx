@@ -2,9 +2,10 @@ import styled from 'styled-components'
 import { Searcher } from './index'
 
 const Header = styled.header`
+  height: 60px;
+  width: 100%;
   display: flex;
   align-items: center;
-  width: 100%;
   background-color: var(--dark);
   color: var(--white);
 `
@@ -12,7 +13,7 @@ const Header = styled.header`
 const Logo = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
-  padding: 1rem;
+  margin-left: 1rem;
 `
 
 export const Navbar = () => {

@@ -28,13 +28,13 @@ export const Importants = () => {
   const importantList = useSelector(selectImportantTasks())
 
   return (
-    <Flex>
+    <>
       <Div>
         <AiOutlineExclamationCircle />
         <ListTitle>Importants</ListTitle>
       </Div>
       <TaskForm />
       <SpecialTaskList taskList={importantList} />
-    </Flex>
+    </>
   )
 }

@@ -2,14 +2,16 @@ import styled from 'styled-components'
 import { Task } from './Task'
 
 const Tasks = styled.div`
-  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
 `
 
 const TaskContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin: 1rem 1rem 2rem 2rem;
+  margin: 1rem 1.5rem 2rem 2rem;
+  z-index: 1;
 `
 
 // export const TaskList = () => {
