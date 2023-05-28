@@ -61,30 +61,30 @@ const Line = styled.div`
 `
 
 export const Sidebar = () => {
-  // const tasks = useSelector((state) => state.tasks.taskList)
   const lists = useSelector(state => state.lists)
+  const [inbox, ...listsWithoutInbox] = lists
   const importantList = useSelector(selectImportantTasks())
 
   return (
     <Container>
       <Title>Menu</Title>
       <Menu>
-        <LinkStyled to='/'>
+        <LinkStyled to='inbox'>
           <IconStyled as={AiOutlineHome} />
-          {/* Tasks<span>{tasks.length}</span> */}
+          Tasks<span>{inbox.taskList.length}</span>
         </LinkStyled>
-        <LinkStyled to='list/create'>
+        <LinkStyled to='create'>
           <IconStyled as={AiOutlinePlus} />
           Add list
         </LinkStyled>
-        <LinkStyled to='task/important'>
+        <LinkStyled to='important'>
           <IconStyled as={AiOutlineExclamationCircle} />
           Important
           <span>{importantList.length}</span>
         </LinkStyled>
         <Line />
-        {lists.map(list =>
-          <LinkStyled key={list.id} to={`list/${list.id}`}>
+        {listsWithoutInbox.map(list =>
+          <LinkStyled key={list.id} to={list.id}>
             <IconStyled as={AiOutlineUnorderedList} />
             {list.title}
             <span>{list.taskList.length}</span>

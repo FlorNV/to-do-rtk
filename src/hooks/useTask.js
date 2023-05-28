@@ -1,19 +1,24 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { addTask, updateTask } from '../redux/lists/listsSlice'
 import { removeSelectedTask } from '../redux/tasks/taskSlice'
+
+const INITIAL_STATE_TASK = {
+  title: '',
+  description: '',
+  completed: false,
+  important: false
+}
 
 export const useTask = () => {
   const taskSelected = useSelector(state => state.tasks)
   const [isEditing, setIsEditing] = useState(false)
-  const [task, setTask] = useState({
-    title: '',
-    description: '',
-    completed: false
-  })
+  const [task, setTask] = useState(INITIAL_STATE_TASK)
   const dispatch = useDispatch()
+  const { pathname } = useLocation()
   const { id } = useParams()
+  const listId = id || 'inbox'
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -27,18 +32,15 @@ export const useTask = () => {
     event.preventDefault()
 
     if (!taskSelected.id) {
-      dispatch(addTask({ listId: id, task }))
+      const newTask = pathname.includes('important') ? { ...task, important: true } : task
+      dispatch(addTask({ listId, task: newTask }))
     } else {
-      dispatch(updateTask({ listId: id, task: { id: taskSelected.id, ...task } }))
+      dispatch(updateTask({ listId, task: { id: taskSelected.id, ...task } }))
       dispatch(removeSelectedTask())
     }
 
     setIsEditing(false)
-    setTask({
-      title: '',
-      description: '',
-      completed: false
-    })
+    setTask(INITIAL_STATE_TASK)
   }
 
   useEffect(() => {
@@ -46,17 +48,13 @@ export const useTask = () => {
       setTask(taskSelected)
       setIsEditing(true)
     }
-  }, [id, taskSelected])
+  }, [listId, taskSelected])
 
   useEffect(() => {
     setIsEditing(false)
-    setTask({
-      title: '',
-      description: '',
-      completed: false
-    })
+    setTask(INITIAL_STATE_TASK)
     dispatch(removeSelectedTask())
-  }, [id])
+  }, [listId])
 
   return { task, isEditing, handleChange, handleSubmit }
 }

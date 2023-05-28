@@ -3,6 +3,11 @@ import { v4 as uuid } from 'uuid'
 
 const initialState = [
   {
+    id: 'inbox',
+    title: 'Tasks',
+    taskList: []
+  },
+  {
     id: '1',
     title: 'List 1',
     taskList: [

@@ -8,5 +8,5 @@ const Container = styled.div`
 `
 
 export const NotFound = () => {
-  return <Container><h1>Not Found</h1></Container>
+  return <Container><h1>List not found ☹️</h1></Container>
 }
