@@ -3,13 +3,6 @@ import { TaskForm, TaskList } from '../components/index'
 import styled from 'styled-components'
 import { AiOutlineHome } from 'react-icons/ai'
 
-const Flex = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`
-
 const Div = styled.div`
   font-size: var(--text-xxl);
   margin: 1rem 2rem;

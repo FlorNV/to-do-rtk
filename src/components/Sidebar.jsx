@@ -9,6 +9,7 @@ import {
 import styled from 'styled-components'
 import { IconStyled } from './styled/Icon'
 import { selectImportantTasks } from '../redux/lists/listsSlice'
+import { NewListForm } from './NewListForm'
 
 const Container = styled.div`
   width: 30%;
@@ -26,7 +27,15 @@ const Title = styled.h1`
   padding: 10px 20px;
 `
 
-const Menu = styled.div`
+const SidebarContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  padding-top: 1px;
+`
+
+const Menu = styled.nav`
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -36,6 +45,12 @@ const Menu = styled.div`
     background-color: rgba(var(--primary-rgb), 0.2);
     border-color: var(--primary);
   }
+`
+
+const SidebarAddList = styled.div`
+  flex-shrink: 0;
+  z-index: 1;
+  display: flex;
 `
 
 const LinkStyled = styled(NavLink)`
@@ -68,28 +83,35 @@ export const Sidebar = () => {
   return (
     <Container>
       <Title>Menu</Title>
-      <Menu>
-        <LinkStyled to='inbox'>
-          <IconStyled as={AiOutlineHome} />
-          Tasks<span>{inbox.taskList.length}</span>
-        </LinkStyled>
-        <LinkStyled to='create'>
-          <IconStyled as={AiOutlinePlus} />
-          Add list
-        </LinkStyled>
-        <LinkStyled to='important'>
-          <IconStyled as={AiOutlineExclamationCircle} />
-          Important
-          <span>{importantList.length}</span>
-        </LinkStyled>
+      <SidebarContent>
+
+        <Menu>
+          <LinkStyled to='inbox'>
+            <IconStyled as={AiOutlineHome} />
+            Tasks<span>{inbox.taskList.length}</span>
+          </LinkStyled>
+          <LinkStyled to='create'>
+            <IconStyled as={AiOutlinePlus} />
+            Add list
+          </LinkStyled>
+          <LinkStyled to='important'>
+            <IconStyled as={AiOutlineExclamationCircle} />
+            Important
+            <span>{importantList.length}</span>
+          </LinkStyled>
+          <Line />
+          {listsWithoutInbox.map(list =>
+            <LinkStyled key={list.id} to={list.id}>
+              <IconStyled as={AiOutlineUnorderedList} />
+              {list.title}
+              <span>{list.taskList.length}</span>
+            </LinkStyled>)}
+        </Menu>
         <Line />
-        {listsWithoutInbox.map(list =>
-          <LinkStyled key={list.id} to={list.id}>
-            <IconStyled as={AiOutlineUnorderedList} />
-            {list.title}
-            <span>{list.taskList.length}</span>
-          </LinkStyled>)}
-      </Menu>
+        <SidebarAddList>
+          <NewListForm />
+        </SidebarAddList>
+      </SidebarContent>
     </Container>
   )
 }

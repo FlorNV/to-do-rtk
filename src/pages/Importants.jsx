@@ -4,13 +4,6 @@ import { selectImportantTasks } from '../redux/lists/listsSlice'
 import { AiOutlineExclamationCircle } from 'react-icons/ai'
 import { SpecialTaskList, TaskForm } from '../components/index'
 
-const Flex = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`
-
 const Div = styled.div`
   font-size: var(--text-xxl);
   margin: 1rem 2rem;

@@ -77,3 +77,7 @@ body *::-webkit-scrollbar-thumb {
 body *::-webkit-scrollbar-thumb:hover {
   background-color: rgba(var(--dark-rgb), 0.8);
 }
+
+input:focus {
+  outline: none;
+}

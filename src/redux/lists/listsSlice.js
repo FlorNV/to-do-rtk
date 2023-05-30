@@ -47,36 +47,6 @@ const initialState = [
         important: false
       }
     ]
-  },
-  {
-    id: '2',
-    title: 'L2',
-    taskList: []
-  },
-  {
-    id: '3',
-    title: 'L3',
-    taskList: []
-  },
-  {
-    id: '4',
-    title: 'L4',
-    taskList: []
-  },
-  {
-    id: '5',
-    title: 'L5',
-    taskList: []
-  },
-  {
-    id: '6',
-    title: 'L6',
-    taskList: []
-  },
-  {
-    id: '7',
-    title: 'L7',
-    taskList: []
   }
 ]
 

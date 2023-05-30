@@ -3,13 +3,6 @@ import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { SpecialTaskList } from '../components/index'
 
-const Flex = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`
-
 const Div = styled.div`
   margin: 1rem 2rem;
   display: flex;
@@ -38,7 +31,7 @@ export const TasksFoundList = () => {
   const tasks = useSelector(state => state.filteredTasks)
 
   return (
-    <Flex>
+    <>
       <Div>
         <ListTitle>Searching "{query}"</ListTitle>
       </Div>
@@ -47,6 +40,6 @@ export const TasksFoundList = () => {
           ? <SpecialTaskList taskList={tasks} />
           : <Message>No search results for "{query}"</Message>
       }
-    </Flex>
+    </>
   )
 }
