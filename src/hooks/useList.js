@@ -1,35 +1,29 @@
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-import { addList, selectListById } from '../redux/lists/listsSlice'
+import { selectListById, updateList } from '../redux/lists/listsSlice'
 
 export const useList = () => {
   const { id } = useParams()
-  const [listTitle, setListTitle] = useState('')
-  const [list, setList] = useState(null)
-  const [isSubmit, setIsSubmit] = useState(false)
-  const lists = useSelector(state => state.lists)
   const listFound = useSelector(selectListById(id))
+  const lists = useSelector(state => state.lists)
+  const [list, setList] = useState(null)
+  const [listTitle, setListTitle] = useState('')
+  const [showInput, setShowInput] = useState(false)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+
+  const handleShowInput = () => setShowInput(prev => !prev)
 
   const handleChange = (event) => setListTitle(event.target.value)
 
-  const handleSubmit = (event) => {
+  const handleUpdateList = (event) => {
     event.preventDefault()
-    setIsSubmit(true)
-
-    dispatch(addList({ title: listTitle }))
+    dispatch(updateList({
+      ...list,
+      title: listTitle
+    }))
+    handleShowInput()
   }
-
-  useEffect(() => {
-    if (isSubmit) {
-      const lastList = lists[lists.length - 1]
-      const listId = lastList.id
-
-      navigate(`/list/${listId}`)
-    }
-  }, [lists])
 
   useEffect(() => {
     if (id) {
@@ -40,5 +34,5 @@ export const useList = () => {
     }
   }, [id, lists])
 
-  return { id, listTitle, list, handleChange, handleSubmit }
+  return { listTitle, list, showInput, handleChange, handleUpdateList, handleShowInput }
 }

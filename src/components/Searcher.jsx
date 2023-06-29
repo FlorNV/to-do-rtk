@@ -11,9 +11,9 @@ const Container = styled.div`
   width: 400px;
 `
 
-const InputContainer = styled.div`
-  display: inline-flex;
-  width: 100%;
+const Label = styled.label`
+  display: flex;
+  flex-direction: row;
   align-items: center;
   padding: 0.5rem;
   border-radius: var(--border-radius);
@@ -65,7 +65,7 @@ export const Searcher = () => {
   return (
     <Container>
       <form>
-        <InputContainer>
+        <Label>
           <Icon />
           <Input
             type='text'
@@ -75,7 +75,7 @@ export const Searcher = () => {
             placeholder='Search'
           />
           {searching && <AiOutlineClose onClick={handleReset} />}
-        </InputContainer>
+        </Label>
       </form>
     </Container>
   )

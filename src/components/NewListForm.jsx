@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { IconStyled } from './styled/Icon'
 import { AiOutlinePlus } from 'react-icons/ai'
@@ -45,20 +45,19 @@ const Button = styled.button`
 `
 
 export const NewListForm = () => {
-  const [isAdding, setIsAdding] = useState(false)
-  const inputRef = useRef()
-  const dispatch = useDispatch()
+  const inputListRef = useRef()
   const lists = useSelector(state => state.lists)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleToggle = () => setIsAdding(prev => !prev)
+  const handleClick = () => inputListRef.current.focus()
 
-  const handleSubmit = (event) => {
+  const handleAddList = (event) => {
     event.preventDefault()
-    const title = inputRef.current.value || 'Untitled list'
+    const title = inputListRef.current.value || 'Untitled list'
     dispatch(addList({ title }))
-    inputRef.current.value = ''
-    inputRef.current.blur()
+    inputListRef.current.value = ''
+    inputListRef.current.blur()
   }
 
   useEffect(() => {
@@ -66,19 +65,15 @@ export const NewListForm = () => {
     const listId = lastList.id
 
     navigate(`/list/${listId}`)
-  }, [lists])
-
-  useEffect(() => {
-    if (isAdding) inputRef.current.focus()
-  }, [isAdding])
+  }, [lists.length])
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Button type='button' onClick={handleToggle}>
+    <Form onSubmit={handleAddList}>
+      <Button type='button' onClick={handleClick}>
         <IconStyled as={AiOutlinePlus} />
       </Button>
       <Input
-        ref={inputRef}
+        ref={inputListRef}
         type='text'
         name='title'
         placeholder='New list'

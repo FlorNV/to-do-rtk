@@ -32,13 +32,11 @@ const SidebarContent = styled.div`
   flex-direction: column;
   flex: 1;
   overflow: hidden;
-  padding-top: 1px;
 `
 
 const Menu = styled.nav`
-  display: flex;
-  flex-direction: column;
   overflow-y: auto;
+  overflow-x: hidden;
 
   & a.active {
     font-weight: 600;
@@ -84,7 +82,6 @@ export const Sidebar = () => {
     <Container>
       <Title>Menu</Title>
       <SidebarContent>
-
         <Menu>
           <LinkStyled to='inbox'>
             <IconStyled as={AiOutlineHome} />
