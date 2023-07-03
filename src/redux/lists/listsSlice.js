@@ -63,9 +63,11 @@ export const listsSlice = createSlice({
       state.push(newList)
     },
     deleteList: (state, action) => {
-      const listFound = state.find(list => list.id === action.payload)
+      const id = action.payload
+      const listFound = state.find(list => list.id === id)
       if (listFound) {
-        state.splice(state.findIndex(listFound, 1))
+        const index = state.indexOf(listFound)
+        state.splice(index, 1)
       }
     },
     updateList: (state, action) => {

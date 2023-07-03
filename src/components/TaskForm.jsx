@@ -10,7 +10,6 @@ const Container = styled.div`
   border-radius: var(--border-radius);
   background-color: var(--light);
   box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-  
   z-index: 2;
 `
 

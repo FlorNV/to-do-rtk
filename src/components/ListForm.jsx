@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import { Button } from './styled/Button'
-import { IconStyled } from './styled/Icon'
 import { AiOutlineCheck } from 'react-icons/ai'
 
 const Form = styled.form`
@@ -21,6 +19,24 @@ const Input = styled.input`
   }
 `
 
+const Button = styled.button`
+  width: max-content;
+  padding: 0.2rem;
+  border-radius: var(--border-radius);
+  border: 2px solid transparent;
+  line-height: 0;
+  font-family: inherit;
+  font-size: 1.2rem;
+  color: var(--white);
+  background-color: var(--dark);
+  cursor: pointer;
+  transition: border-color 0.25s;
+
+  &:hover {
+    border-color: #6290c3;
+  }
+`
+
 export const ListForm = ({ listTitle, size, handleUpdateList, handleChange }) => {
   return (
     <Form onSubmit={handleUpdateList}>
@@ -31,8 +47,8 @@ export const ListForm = ({ listTitle, size, handleUpdateList, handleChange }) =>
         onChange={handleChange}
         size={size}
       />
-      <Button type='submit' icon='true'>
-        <IconStyled as={AiOutlineCheck} />
+      <Button type='submit'>
+        <AiOutlineCheck />
       </Button>
     </Form>
   )

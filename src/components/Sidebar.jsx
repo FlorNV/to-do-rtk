@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import {
   AiOutlineHome,
-  AiOutlinePlus,
   AiOutlineExclamationCircle,
   AiOutlineUnorderedList
 } from 'react-icons/ai'
@@ -67,7 +66,7 @@ const LinkStyled = styled(NavLink)`
   }
 `
 
-const Line = styled.div`
+const Separator = styled.div`
   height: 1px;
   margin: 10px 20px;
   background-color: rgba(var(--dark-rgb), 0.2);
@@ -85,18 +84,15 @@ export const Sidebar = () => {
         <Menu>
           <LinkStyled to='inbox'>
             <IconStyled as={AiOutlineHome} />
-            Tasks<span>{inbox.taskList.length}</span>
-          </LinkStyled>
-          <LinkStyled to='create'>
-            <IconStyled as={AiOutlinePlus} />
-            Add list
+            Tasks
+            <span>{inbox.taskList.length}</span>
           </LinkStyled>
           <LinkStyled to='important'>
             <IconStyled as={AiOutlineExclamationCircle} />
             Important
             <span>{importantList.length}</span>
           </LinkStyled>
-          <Line />
+          <Separator />
           {listsWithoutInbox.map(list =>
             <LinkStyled key={list.id} to={list.id}>
               <IconStyled as={AiOutlineUnorderedList} />
@@ -104,7 +100,6 @@ export const Sidebar = () => {
               <span>{list.taskList.length}</span>
             </LinkStyled>)}
         </Menu>
-        <Line />
         <SidebarAddList>
           <NewListForm />
         </SidebarAddList>

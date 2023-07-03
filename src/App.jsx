@@ -1,8 +1,12 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { Navigation } from './components/index'
 import { Home, Importants, ListDetails, TasksFoundList } from './pages/index'
+import { Modal } from './components/Modal'
+import { useSelector } from 'react-redux'
 
 function App () {
+  const showModal = useSelector(state => state.modal.showModal)
+
   return (
     <BrowserRouter>
       <Routes>
@@ -17,6 +21,7 @@ function App () {
         </Route>
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
+      {showModal && <Modal />}
     </BrowserRouter>
   )
 }

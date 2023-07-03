@@ -11,9 +11,10 @@ const Header = styled.header`
 `
 
 const Logo = styled.div`
+  margin-left: 1rem;
   font-size: 1.5rem;
   font-weight: 600;
-  margin-left: 1rem;
+  color: var(--white);
 `
 
 export const Navbar = () => {
