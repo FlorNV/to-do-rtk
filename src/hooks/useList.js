@@ -1,18 +1,25 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectListById, updateList } from '../redux/lists/listsSlice'
+import { deleteList, selectListById, updateList } from '../redux/lists/listsSlice'
+import { openModal } from '../redux/modal/modalSlice'
 
 export const useList = () => {
   const { id } = useParams()
   const listFound = useSelector(selectListById(id))
   const lists = useSelector(state => state.lists)
+  const modalResult = useSelector(state => state.modal.modalResult)
   const [list, setList] = useState(null)
   const [listTitle, setListTitle] = useState('')
-  const [showInput, setShowInput] = useState(false)
+  const [isShowInput, setIsShowInput] = useState(false)
+  const [isOpenDropdown, setIsOpenDropdown] = useState(false)
   const dispatch = useDispatch()
 
-  const handleShowInput = () => setShowInput(prev => !prev)
+  const showInput = () => setIsShowInput(true)
+
+  const hideInput = () => setIsShowInput(false)
+
+  const closeDropdown = () => setIsOpenDropdown(false)
 
   const handleChange = (event) => setListTitle(event.target.value)
 
@@ -22,7 +29,22 @@ export const useList = () => {
       ...list,
       title: listTitle
     }))
-    handleShowInput()
+    hideInput()
+  }
+
+  const handleDropdown = (event) => {
+    event.stopPropagation()
+    setIsOpenDropdown(prev => !prev)
+  }
+
+  const handleChangeListName = () => {
+    showInput()
+    closeDropdown()
+  }
+
+  const handleDeleteList = () => {
+    dispatch(openModal())
+    closeDropdown()
   }
 
   useEffect(() => {
@@ -34,5 +56,24 @@ export const useList = () => {
     }
   }, [id, lists])
 
-  return { listTitle, list, showInput, handleChange, handleUpdateList, handleShowInput }
+  useEffect(() => {
+    if (modalResult === 'confirm') {
+      dispatch(deleteList(id))
+    }
+  }, [modalResult])
+
+  return {
+    listTitle,
+    list,
+    isShowInput,
+    isOpenDropdown,
+    handleChange,
+    handleUpdateList,
+    showInput,
+    hideInput,
+    handleDropdown,
+    handleChangeListName,
+    handleDeleteList,
+    closeDropdown
+  }
 }
