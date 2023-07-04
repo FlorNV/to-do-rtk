@@ -10,7 +10,6 @@ export const useList = () => {
   const lists = useSelector(state => state.lists)
   const modalResult = useSelector(state => state.modal.modalResult)
   const [list, setList] = useState(null)
-  const [listTitle, setListTitle] = useState('')
   const [isShowInput, setIsShowInput] = useState(false)
   const [isOpenDropdown, setIsOpenDropdown] = useState(false)
   const dispatch = useDispatch()
@@ -21,13 +20,10 @@ export const useList = () => {
 
   const closeDropdown = () => setIsOpenDropdown(false)
 
-  const handleChange = (event) => setListTitle(event.target.value)
-
-  const handleUpdateList = (event) => {
-    event.preventDefault()
+  const handleUpdateList = (title) => {
     dispatch(updateList({
       ...list,
-      title: listTitle
+      title
     }))
     hideInput()
   }
@@ -37,7 +33,7 @@ export const useList = () => {
     setIsOpenDropdown(prev => !prev)
   }
 
-  const handleChangeListName = () => {
+  const handleShowInput = () => {
     showInput()
     closeDropdown()
   }
@@ -51,7 +47,6 @@ export const useList = () => {
     if (id) {
       if (listFound) {
         setList(listFound)
-        setListTitle(listFound.title)
       }
     }
   }, [id, lists])
@@ -63,16 +58,14 @@ export const useList = () => {
   }, [modalResult])
 
   return {
-    listTitle,
     list,
     isShowInput,
     isOpenDropdown,
-    handleChange,
     handleUpdateList,
     showInput,
     hideInput,
     handleDropdown,
-    handleChangeListName,
+    handleShowInput,
     handleDeleteList,
     closeDropdown
   }

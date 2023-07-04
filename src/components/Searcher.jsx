@@ -30,10 +30,6 @@ const Input = styled.input`
   padding: 0 0.5rem;
   border: none;
   border-radius: inherit;
-
-  &:focus {
-    outline: none;
-  }
 `
 
 export const Searcher = () => {

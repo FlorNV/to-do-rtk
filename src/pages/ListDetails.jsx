@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { AiOutlineEllipsis, AiOutlineUnorderedList } from 'react-icons/ai'
 import styled from 'styled-components'
 import { NotFound } from './index'
@@ -44,25 +44,30 @@ const Button = styled.button`
 export const ListDetails = () => {
   const {
     list,
-    listTitle,
     isShowInput,
     isOpenDropdown,
-    handleChange,
     handleUpdateList,
-    handleChangeListName,
+    handleShowInput,
     handleDeleteList,
     showInput,
+    hideInput,
     handleDropdown,
     closeDropdown
   } = useList()
   const buttonRef = useRef(null)
   const menuRef = useRef(null)
 
-  window.addEventListener('click', (event) => {
-    if (event.target !== buttonRef.current && event.target !== menuRef.current) {
-      closeDropdown(false)
+  useEffect(() => {
+    const handleClick = (event) => {
+      if (event.target !== buttonRef.current && event.target !== menuRef.current) {
+        closeDropdown()
+      }
     }
-  })
+
+    document.addEventListener('click', handleClick)
+
+    return () => document.removeEventListener('click', handleClick)
+  }, [])
 
   return (
     <>
@@ -72,25 +77,25 @@ export const ListDetails = () => {
             <AiOutlineUnorderedList />
             {isShowInput
               ? <ListForm
-                  listTitle={listTitle}
-                  size={list.title.length}
+                  listTitle={list.title}
                   handleUpdateList={handleUpdateList}
-                  handleChange={handleChange}
+                  hideInput={hideInput}
                 />
               : <ListTitle onDoubleClick={showInput}>{list.title}</ListTitle>}
             <Button ref={buttonRef} onClick={handleDropdown}><AiOutlineEllipsis /></Button>
             <Dropdown
               forwardedRef={menuRef}
               isOpenDropdown={isOpenDropdown}
-              handleChangeListName={handleChangeListName}
+              handleShowInput={handleShowInput}
               handleDeleteList={handleDeleteList}
+              closeDropdown={closeDropdown}
             />
           </ToolBar>
           <TasksContainer>
             <TaskForm />
             <TaskList list={list} />
           </TasksContainer>
-        </>
+          </>
         : <NotFound />}
     </>
   )

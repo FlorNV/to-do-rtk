@@ -30,9 +30,6 @@ const Input = styled.input`
   &::placeholder {
     color: var(--dark);
   }
-  &:focus {
-    outline: none;
-  }
 `
 
 const Textarea = styled(Input)`

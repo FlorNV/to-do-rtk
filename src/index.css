@@ -84,6 +84,6 @@ a {
   text-decoration: inherit;
 }
 
-input:focus {
+*:focus {
   outline: none;
 }

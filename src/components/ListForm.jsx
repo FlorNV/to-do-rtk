@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { AiOutlineCheck } from 'react-icons/ai'
+import { useEffect, useRef, useState } from 'react'
 
 const Form = styled.form`
   display: flex;
@@ -13,43 +13,51 @@ const Input = styled.input`
   background-color: transparent;
   border: 1px solid var(--dark);
   border-radius: var(--border-radius);
-
-  &:focus {
-    outline: none;
-  }
 `
 
-const Button = styled.button`
-  width: max-content;
-  padding: 0.2rem;
-  border-radius: var(--border-radius);
-  border: 2px solid transparent;
-  line-height: 0;
-  font-family: inherit;
-  font-size: 1.2rem;
-  color: var(--white);
-  background-color: var(--dark);
-  cursor: pointer;
-  transition: border-color 0.25s;
+export const ListForm = ({ listTitle, handleUpdateList, hideInput }) => {
+  const formRef = useRef(null)
+  const inputRef = useRef(null)
+  const [title, setTitle] = useState(listTitle)
 
-  &:hover {
-    border-color: #6290c3;
+  const handleChange = (event) => setTitle(event.target.value)
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    handleUpdateList(title)
   }
-`
 
-export const ListForm = ({ listTitle, size, handleUpdateList, handleChange }) => {
+  const handleKey = (event) => {
+    if (event.key === 'Escape') {
+      hideInput()
+    }
+  }
+
+  useEffect(() => {
+    inputRef.current.select()
+    const handleClick = (event) => {
+      if (event.target !== formRef.current) {
+        hideInput()
+      }
+    }
+    document.addEventListener('click', handleClick)
+
+    return () => document.removeEventListener('click', handleClick)
+  }, [])
+
   return (
-    <Form onSubmit={handleUpdateList}>
+    <Form
+      ref={formRef} onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}
+      onKeyDown={handleKey}
+    >
       <Input
+        ref={inputRef}
         type='text'
         name='title'
-        value={listTitle}
+        value={title}
         onChange={handleChange}
-        size={size}
+        size={listTitle.length}
       />
-      <Button type='submit'>
-        <AiOutlineCheck />
-      </Button>
     </Form>
   )
 }

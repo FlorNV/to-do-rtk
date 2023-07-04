@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import styled, { css } from 'styled-components'
 import { IconStyled } from '../components/styled/Icon'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
@@ -49,8 +49,9 @@ const Options = styled.ul`
 export const Dropdown = ({
   forwardedRef,
   isOpenDropdown,
-  handleChangeListName,
-  handleDeleteList
+  handleShowInput,
+  handleDeleteList,
+  closeDropdown
 }) => {
   const menuRef = useRef()
 
@@ -58,12 +59,24 @@ export const Dropdown = ({
     forwardedRef.current = menuRef.current
   }
 
+  useEffect(() => {
+    const handleKey = (event) => {
+      if (event.key === 'Escape') {
+        closeDropdown()
+      }
+    }
+
+    document.addEventListener('keydown', handleKey)
+
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [])
+
   return (
     <Menu ref={menuRef} show={isOpenDropdown} onClick={(e) => e.stopPropagation()}>
       <h5>List options</h5>
       <Options>
         <li>
-          <button onClick={handleChangeListName}>
+          <button onClick={handleShowInput}>
             <IconStyled as={AiOutlineEdit} />
             Change list name
           </button>
