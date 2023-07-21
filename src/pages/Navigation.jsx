@@ -1,29 +1,24 @@
 import { Outlet } from 'react-router-dom'
 import styled from 'styled-components'
-import { Navbar, Sidebar } from './index'
+import { Navbar, Sidebar } from '../components/index'
+// import { useSelector } from 'react-redux'
 
 const Container = styled.div`
     display: flex;
     height: 100%;
     overflow: hidden;
-`
-
-const Main = styled.main`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+    position: relative;
 `
 
 export const Navigation = () => {
+  // const showMenu = useSelector(state => state.menu.showMenu)
+
   return (
     <>
       <Navbar />
       <Container>
         <Sidebar />
-        <Main>
-          <Outlet />
-        </Main>
+        <Outlet />
       </Container>
     </>
   )

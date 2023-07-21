@@ -1,6 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { Navigation } from './components/index'
-import { Home, Importants, ListDetails, TasksFoundList } from './pages/index'
+import { Navigation, Home, Importants, ListDetails, TasksFoundList } from './pages/index'
 import { Modal } from './components/Modal'
 import { useSelector } from 'react-redux'
 

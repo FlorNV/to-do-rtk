@@ -1,7 +1,20 @@
 import { useEffect, useRef } from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { IconStyled } from '../components/styled/Icon'
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
+import { AiOutlineDelete, AiOutlineEdit } from '../utils/icons'
+
+const fadeInDown = keyframes`
+  0% {
+    opacity: 0;
+    transform: translate3d(0px, -10px, 0px);
+    pointer-events: none;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
+    pointer-events: auto;
+  }
+`
 
 const Menu = styled.div`
   position: absolute;
@@ -12,12 +25,16 @@ const Menu = styled.div`
   border-radius: var(--border-radius);
   box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2);
   ${({ show }) => show
-  ? css`
-      opacity: 1;
-      transform: translateY(10px);
-    `
-  : 'opacity: 0'};
-  transition: opacity 0.2s ease, transform 0.2s ease;
+? css`
+  animation-name: ${fadeInDown};
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.1, 0.9, 0.2, 1);
+  animation-fill-mode: both;
+  `
+ : css`
+  opacity: 0;
+  pointer-events: none;
+  `}
 
   & > h5 {
     text-align: center;

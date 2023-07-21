@@ -1,23 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
 import {
-  AiOutlineDelete,
-  AiOutlineEdit,
   AiFillCheckCircle,
   AiOutlineExclamationCircle,
-  AiFillExclamationCircle
-} from 'react-icons/ai'
-import { RxCircle } from 'react-icons/rx'
-
-import styled from 'styled-components'
+  AiFillExclamationCircle,
+  RxCircle
+} from '../utils/icons'
 import { ButtonIcon } from './styled/Button'
 import { IconStyled } from './styled/Icon'
-import { selectedTask } from '../redux/tasks/taskSlice'
-import {
-  deleteTask,
-  selectListById,
-  toggleTask,
-  toggleTaskImportant
-} from '../redux/lists/listsSlice'
+import { selectTask } from '../redux/tasks/taskSlice'
+import { selectListById, toggleTask, toggleTaskImportant } from '../redux/lists/listsSlice'
 
 const TaskContainer = styled.div`
   display: flex;
@@ -27,6 +19,7 @@ const TaskContainer = styled.div`
   box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2);
   background-color: var(--light);
   color: var(--dark);
+  cursor: pointer;
 `
 
 const Content = styled.div`
@@ -52,33 +45,26 @@ const Small = styled.small`
   color: rgba(var(--primary-rgb), 0.8);
 `
 
-const Div = styled.div`
-  display: flex;
-  gap: 10px;
-`
-
 export const Task = ({ task, listId, showList = false }) => {
   const dispatch = useDispatch()
   const list = useSelector(selectListById(listId))
 
-  const handleDelete = () => {
-    dispatch(deleteTask({ listId, taskId: task.id }))
-  }
-
   const handleSelected = () => {
-    dispatch(selectedTask(task))
+    dispatch(selectTask(task))
   }
 
-  const handleToggle = () => {
+  const handleToggle = (event) => {
+    event.stopPropagation()
     dispatch(toggleTask({ listId, taskId: task.id }))
   }
 
-  const handleToggleImportant = () => {
+  const handleToggleImportant = (event) => {
+    event.stopPropagation()
     dispatch(toggleTaskImportant({ listId, taskId: task.id }))
   }
 
   return (
-    <TaskContainer>
+    <TaskContainer onClick={handleSelected}>
       <ButtonIcon onClick={handleToggle}>
         {task.completed
           ? <IconStyled as={AiFillCheckCircle} />
@@ -89,19 +75,11 @@ export const Task = ({ task, listId, showList = false }) => {
         <Description>{task.description}</Description>
         {showList && <Small>{list.title}</Small>}
       </Content>
-      <Div>
-        <ButtonIcon onClick={handleDelete}>
-          <IconStyled as={AiOutlineDelete} />
-        </ButtonIcon>
-        <ButtonIcon onClick={handleSelected}>
-          <IconStyled as={AiOutlineEdit} />
-        </ButtonIcon>
-        <ButtonIcon onClick={handleToggleImportant}>
-          {task.important
-            ? <IconStyled as={AiFillExclamationCircle} />
-            : <IconStyled as={AiOutlineExclamationCircle} />}
-        </ButtonIcon>
-      </Div>
+      <ButtonIcon onClick={handleToggleImportant}>
+        {task.important
+          ? <IconStyled as={AiFillExclamationCircle} />
+          : <IconStyled as={AiOutlineExclamationCircle} />}
+      </ButtonIcon>
     </TaskContainer>
   )
 }

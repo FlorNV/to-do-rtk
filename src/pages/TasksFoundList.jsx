@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { SpecialTaskList } from '../components/index'
+import { Main } from '../components/styled/Containers'
 
 const Div = styled.div`
   margin: 1rem 2rem;
@@ -31,7 +32,7 @@ export const TasksFoundList = () => {
   const tasks = useSelector(state => state.filteredTasks)
 
   return (
-    <>
+    <Main column>
       <Div>
         <ListTitle>Searching "{query}"</ListTitle>
       </Div>
@@ -40,6 +41,6 @@ export const TasksFoundList = () => {
           ? <SpecialTaskList taskList={tasks} />
           : <Message>No search results for "{query}"</Message>
       }
-    </>
+    </Main>
   )
 }

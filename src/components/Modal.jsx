@@ -1,6 +1,7 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { closeModal, setModalResult } from '../redux/modal/modalSlice'
+import { DarkButton, LightButton } from './styled/Button'
 
 const Layer = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
@@ -37,29 +38,6 @@ const ButtonContainer = styled.div`
   }
 `
 
-export const Button = styled.button`
-  width: max-content;
-  border-radius: var(--border-radius);
-  border: 2px solid transparent;
-  padding: 0.6rem;
-  font-family: inherit;
-  ${({ cancel }) => cancel
-  ? css`
-    background-color: var(--secondary);
-    color: var(--dark);
-  `
-  : css`
-    background-color: var(--dark);
-    color: var(--white);
-  `};
-  cursor: pointer;
-  transition: border-color 0.25s;
-
-  &:hover {
-    border-color: #6290c3;
-  }
-`
-
 export const Modal = () => {
   const dispatch = useDispatch()
 
@@ -78,11 +56,11 @@ export const Modal = () => {
   return (
     <Layer onClick={handleCloseModal}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
-        <h3>"List 1" will be permanently removed.</h3>
+        <h3>This list will be permanently removed.</h3>
         <p>You will not be able to undo this action.</p>
         <ButtonContainer>
-          <Button cancel onClick={cancelOperation}>Cancel</Button>
-          <Button onClick={confirmOperation}>Delete list</Button>
+          <LightButton cancel onClick={cancelOperation}>Cancel</LightButton>
+          <DarkButton onClick={confirmOperation}>Delete list</DarkButton>
         </ButtonContainer>
       </ModalContainer>
     </Layer>

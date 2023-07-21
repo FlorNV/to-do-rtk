@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import { AiOutlineSearch, AiOutlineClose } from 'react-icons/ai'
+import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
+import { AiOutlineSearch, AiOutlineClose } from '../utils/icons'
 import { selectAllTasks } from '../redux/lists/listsSlice'
 import { setFilteredTasks } from '../redux/tasks/fiteredTasksSlice'
 
@@ -34,8 +34,8 @@ const Input = styled.input`
 
 export const Searcher = () => {
   const navigate = useNavigate()
-  const allTasks = useSelector(selectAllTasks())
   const dispatch = useDispatch()
+  const allTasks = useSelector(selectAllTasks())
   const [searching, setSearching] = useState(false)
   const [query, setQuery] = useState('')
 
@@ -52,11 +52,12 @@ export const Searcher = () => {
     navigate('/')
   }
 
-  useEffect(() => {
-    const filteredTasks = allTasks.filter(task =>
+  const filteredTasks = useMemo(() => {
+    return allTasks.filter(task =>
       task.title.toLowerCase().includes(query.toLowerCase()))
-    dispatch(setFilteredTasks(filteredTasks))
-  }, [query, allTasks])
+  }, [allTasks, query])
+
+  dispatch(setFilteredTasks(filteredTasks))
 
   return (
     <Container>

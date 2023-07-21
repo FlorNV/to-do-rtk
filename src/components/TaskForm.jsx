@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { useTask } from '../hooks/useTask'
-import { Button } from './styled/Button'
+import { DarkButton } from './styled/Button'
 
 const Container = styled.div`
   display: flex;
@@ -32,16 +32,8 @@ const Input = styled.input`
   }
 `
 
-const Textarea = styled(Input)`
-  font-family: inherit;
-  resize: none;
-  /* height: 100px;
-  min-height: 20px;
-  max-height: 180px; */
-`
-
 export const TaskForm = () => {
-  const { task, isEditing, handleChange, handleSubmit } = useTask()
+  const { task, handleChange, handleSubmit } = useTask()
 
   return (
     <Container>
@@ -53,14 +45,7 @@ export const TaskForm = () => {
           onChange={handleChange}
           value={task.title}
         />
-        <Textarea
-          name='description'
-          placeholder='Description'
-          onChange={handleChange}
-          value={task.description}
-          as='textarea'
-        />
-        <Button type='submit'>{!isEditing ? 'Add task' : 'Update task'}</Button>
+        <DarkButton type='submit'>Add task</DarkButton>
       </Form>
     </Container>
   )

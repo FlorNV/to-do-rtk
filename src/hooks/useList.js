@@ -8,7 +8,7 @@ export const useList = () => {
   const { id } = useParams()
   const listFound = useSelector(selectListById(id))
   const lists = useSelector(state => state.lists)
-  const modalResult = useSelector(state => state.modal.modalResult)
+  const { showModal, modalResult } = useSelector(state => state.modal)
   const [list, setList] = useState(null)
   const [isShowInput, setIsShowInput] = useState(false)
   const [isOpenDropdown, setIsOpenDropdown] = useState(false)
@@ -52,10 +52,10 @@ export const useList = () => {
   }, [id, lists])
 
   useEffect(() => {
-    if (modalResult === 'confirm') {
+    if (!showModal && modalResult === 'confirm') {
       dispatch(deleteList(id))
     }
-  }, [modalResult])
+  }, [showModal])
 
   return {
     list,

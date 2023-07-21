@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { IconStyled } from './styled/Icon'
-import { AiOutlinePlus } from 'react-icons/ai'
-import { useDispatch, useSelector } from 'react-redux'
+import { AiOutlinePlus } from '../utils/icons'
 import { addList } from '../redux/lists/listsSlice'
-import { useNavigate } from 'react-router-dom'
 
 const Form = styled.form`
   width: 100%;
@@ -62,9 +62,8 @@ export const NewListForm = () => {
 
   useEffect(() => {
     const lastList = lists[lists.length - 1]
-    const listId = lastList.id
 
-    navigate(`/list/${listId}`)
+    navigate(`/list/${lastList.id}`)
   }, [lists.length])
 
   return (

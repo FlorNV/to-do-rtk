@@ -1,14 +1,16 @@
 import { useSelector } from 'react-redux'
-import { TaskForm, TaskList } from '../components/index'
 import styled from 'styled-components'
-import { AiOutlineHome } from 'react-icons/ai'
+import { AiOutlineHome } from '../utils/icons'
+import { TaskForm, TaskList } from '../components/index'
+import { TaskDetails } from '../components/TaskDetails'
+import { Main, ToolBar } from '../components/styled/Containers'
+import { Layer } from '../components/styled/Layer'
 
-const Div = styled.div`
-  font-size: var(--text-xxl);
-  margin: 1rem 2rem;
+const LeftColumn = styled.div`
+  flex: 1;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  overflow: hidden;
 `
 
 const ListTitle = styled.span`
@@ -17,18 +19,25 @@ const ListTitle = styled.span`
 `
 
 export const Home = () => {
+  const showMenu = useSelector(state => state.menu.showMenu)
+  const selectedTask = useSelector(state => state.tasks)
   const lists = useSelector(state => state.lists)
   const [inbox] = lists
 
   return (
-    <>
-      <Div>
-        <AiOutlineHome />
-        <ListTitle>Tasks</ListTitle>
-      </Div>
-      {/* <Filters /> */}
-      <TaskForm />
-      <TaskList list={inbox} />
-    </>
+    <Main>
+      <LeftColumn>
+        <Layer isVisible={showMenu} />
+        <ToolBar>
+          <AiOutlineHome />
+          <ListTitle>Tasks</ListTitle>
+        </ToolBar>
+        {/* <Filters /> */}
+        <TaskForm />
+        <TaskList list={inbox} />
+      </LeftColumn>
+      {selectedTask.isVisible &&
+        <TaskDetails listId={inbox.id} selectedTask={selectedTask} />}
+    </Main>
   )
 }
