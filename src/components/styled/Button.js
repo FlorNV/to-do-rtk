@@ -1,24 +1,25 @@
 import styled from 'styled-components'
 
 export const DarkButton = styled.button`
+  margin-left: ${({ left }) => left && 'auto'};
   width: max-content;
   border-radius: var(--border-radius);
   border: 2px solid transparent;
   padding: 0.3rem 0.6rem;
   font-family: inherit;
-  background-color: var(--dark);
-  color: var(--white);
+  background-color: var(--bg-primary);
+  color: var(--font-color-tertiary);
   cursor: pointer;
   transition: border-color 250ms;
 
   &:hover {
-    border-color: #6290c3;
+    border-color: var(--font-color-cyan);
   }
 `
 
 export const LightButton = styled(DarkButton)`
-  background-color: var(--secondary);
-  color: var(--dark);
+  background-color: var(--bg-secondary);
+  color: var(--font-color-primary);
 `
 
 export const LightButtonIcon = styled.button`
@@ -29,24 +30,32 @@ export const LightButtonIcon = styled.button`
   line-height: 0;
   font-size: ${({ xl }) => xl ? 'var(--text-xl)' : 'var(--text-lg)'};
   cursor: pointer;
-  transition: background-color 100ms ease;
+  transition: background-color 150ms ease-in;
 
   &:hover {
-    background-color: rgba(var(--light-rgb), 0.5);
+    background-color: var(--bg-white);
   }
 `
 
 export const ButtonIcon = styled.button`
   border: none;
   background-color: transparent;
-  color: var(--dark);
   line-height: 0;
   margin-left: ${({ left }) => left && 'auto'};
   cursor: pointer;
-  transition: color 100ms ease;
+  transition: color 150ms ease-in;
   font-size: inherit;
+  color: ${({ black }) => black ? 'inherit' : 'var(--font-color-secondary)'};
 
   &:hover {
-    color: rgba(var(--dark-rgb), 0.6);
+    color: var(--font-color-hover);
+  }
+`
+
+export const MenuButton = styled(LightButtonIcon)`
+  display: block;
+
+  @media (min-width: 768px) {
+    display: ${({ isVisible }) => isVisible && 'none'};
   }
 `

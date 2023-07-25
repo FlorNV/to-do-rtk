@@ -4,7 +4,7 @@ import { Modal } from './components/Modal'
 import { useSelector } from 'react-redux'
 
 function App () {
-  const showModal = useSelector(state => state.modal.showModal)
+  const isVisibleModal = useSelector(state => state.modal.isVisibleModal)
 
   return (
     <BrowserRouter>
@@ -20,7 +20,7 @@ function App () {
         </Route>
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
-      {showModal && <Modal />}
+      {isVisibleModal && <Modal />}
     </BrowserRouter>
   )
 }

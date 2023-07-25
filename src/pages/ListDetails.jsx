@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { AiOutlineEllipsis, AiOutlineUnorderedList, AiOutlineMenu } from '../utils/icons'
 import { NotFound } from './index'
-import { ListForm, TaskForm, TaskList, Dropdown } from '../components/index'
+import { ListForm, TaskForm, TaskList, Dropdown, TaskDetails } from '../components/index'
 import { useList } from '../hooks/useList'
 import { toggleMenuVisibility } from '../redux/modal/menuSlice'
-import { TaskDetails } from '../components/TaskDetails'
 import { Main, ToolBar } from '../components/styled/Containers'
-import { LightButtonIcon } from '../components/styled/Button'
+import { LightButtonIcon, MenuButton } from '../components/styled/Button'
 import { Layer } from '../components/styled/Layer'
 
 const LeftColumn = styled.div`
@@ -16,6 +15,7 @@ const LeftColumn = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
 `
 
 const Icon = styled.span`
@@ -27,24 +27,9 @@ const Icon = styled.span`
   }
 `
 
-const MenuButton = styled(LightButtonIcon)`
-  display: block;
-
-  @media (min-width: 768px) {
-    display: ${({ isVisible }) => isVisible && 'none'};
-  }
-`
-
-const TasksContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-`
-
-const ListTitle = styled.span`
+const ListTitle = styled.h2`
   font-weight: 600;
-  margin: 0;
+  font-size: inherit;
 `
 
 export const ListDetails = () => {
@@ -63,7 +48,7 @@ export const ListDetails = () => {
   const buttonRef = useRef(null)
   const menuRef = useRef(null)
   const selectedTask = useSelector(state => state.tasks)
-  const showMenu = useSelector(state => state.menu.showMenu)
+  const isVisibleMenu = useSelector(state => state.menu.isVisibleMenu)
   const dispatch = useDispatch()
 
   const toggleButton = () => dispatch(toggleMenuVisibility())
@@ -85,11 +70,11 @@ export const ListDetails = () => {
       {list
         ? <>
           <LeftColumn>
-            <Layer isVisible={showMenu} onClick={toggleButton} />
+            <Layer isVisible={isVisibleMenu} onClick={toggleButton} />
             <ToolBar>
 
-              <Icon isVisible={showMenu}><AiOutlineUnorderedList /></Icon>
-              <MenuButton isVisible={showMenu} onClick={toggleButton}>
+              <Icon isVisible={isVisibleMenu}><AiOutlineUnorderedList /></Icon>
+              <MenuButton isVisible={isVisibleMenu} onClick={toggleButton}>
                 <AiOutlineMenu />
               </MenuButton>
 
@@ -112,10 +97,8 @@ export const ListDetails = () => {
                 closeDropdown={closeDropdown}
               />
             </ToolBar>
-            <TasksContainer>
-              <TaskForm />
-              <TaskList list={list} />
-            </TasksContainer>
+            <TaskForm />
+            <TaskList list={list} />
           </LeftColumn>
           {selectedTask.isVisible &&
             <TaskDetails listId={list.id} selectedTask={selectedTask} />}

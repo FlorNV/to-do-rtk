@@ -10,13 +10,12 @@ const Container = styled.div`
   margin: 2rem;
   margin-bottom: 0;
   border-radius: var(--border-radius);
-  background-color: var(--light);
+  background-color: var(--bg-white);
   box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2);
   position: relative;
 `
 
 const Title = styled.h3`
-  margin: 0;
   margin-bottom: 1rem;
 `
 

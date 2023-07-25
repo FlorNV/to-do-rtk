@@ -11,7 +11,7 @@ const Container = styled.div`
 `
 
 export const Navigation = () => {
-  // const showMenu = useSelector(state => state.menu.showMenu)
+  // const isVisibleMenu = useSelector(state => state.menu.isVisibleMenu)
 
   return (
     <>

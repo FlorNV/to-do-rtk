@@ -1,7 +1,9 @@
-import styled from 'styled-components'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import styled from 'styled-components'
 import { closeModal, setModalResult } from '../redux/modal/modalSlice'
 import { DarkButton, LightButton } from './styled/Button'
+import { AiOutlineClose } from '../utils/icons'
 
 const Layer = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
@@ -24,7 +26,8 @@ const ModalContainer = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   border-radius: var(--border-radius);
-  background-color: var(--white);
+  background-color: var(--bg-white);
+  position: relative;
 `
 
 const ButtonContainer = styled.div`
@@ -38,10 +41,21 @@ const ButtonContainer = styled.div`
   }
 `
 
+const CloseButton = styled.button`
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  line-height: 0;
+  padding: 8px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--bg-primary);
+  color: var(--font-color-tertiary);
+  cursor: pointer;
+`
+
 export const Modal = () => {
   const dispatch = useDispatch()
-
-  const handleCloseModal = () => dispatch(closeModal())
 
   const cancelOperation = () => {
     dispatch(setModalResult('cancel'))
@@ -53,9 +67,22 @@ export const Modal = () => {
     dispatch(closeModal())
   }
 
+  useEffect(() => {
+    const handleKey = (event) => {
+      if (event.key === 'Escape') {
+        cancelOperation()
+      }
+    }
+
+    document.addEventListener('keydown', handleKey)
+
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [])
+
   return (
-    <Layer onClick={handleCloseModal}>
-      <ModalContainer onClick={(e) => e.stopPropagation()}>
+    <Layer onClick={cancelOperation}>
+      <ModalContainer onClick={(event) => event.stopPropagation()}>
+        <CloseButton onClick={cancelOperation}><AiOutlineClose /></CloseButton>
         <h3>This list will be permanently removed.</h3>
         <p>You will not be able to undo this action.</p>
         <ButtonContainer>

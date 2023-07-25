@@ -17,8 +17,8 @@ const TaskContainer = styled.div`
   padding: 1rem 2rem;
   border-radius: var(--border-radius);
   box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-  background-color: var(--light);
-  color: var(--dark);
+  background-color: var(--bg-white);
+  color: var(--font-color-primary);
   cursor: pointer;
 `
 
@@ -30,6 +30,7 @@ const Content = styled.div`
 
 const Title = styled.h3`
   font-size: var(--text-lg);
+  font-weight: 400;
   margin: 0.5rem 0;
 `
 
@@ -70,11 +71,13 @@ export const Task = ({ task, listId, showList = false }) => {
           ? <IconStyled as={AiFillCheckCircle} />
           : <IconStyled as={RxCircle} />}
       </ButtonIcon>
+
       <Content>
         <Title>{task.title}</Title>
         <Description>{task.description}</Description>
         {showList && <Small>{list.title}</Small>}
       </Content>
+
       <ButtonIcon onClick={handleToggleImportant}>
         {task.important
           ? <IconStyled as={AiFillExclamationCircle} />

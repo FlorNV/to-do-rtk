@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import {
@@ -20,8 +20,8 @@ const RightColumn = styled.div`
   justify-content: space-between;
   width: 360px;
   padding: 2rem;
-  background-color: var(--secondary);
-  box-shadow: -4px 0 6px -2px rgba(0, 0, 0, 0.2);
+  background-color: var(--bg-secondary);
+  box-shadow: -4px 0 6px -2px rgba(0, 0, 0, 0.1), -6px 0 8px -4px rgba(0, 0, 0, 0.1);
 `
 
 const Form = styled.form`
@@ -37,16 +37,14 @@ const TaskContainer = styled.div`
   gap: 1rem;
   padding: 1rem;
   border-radius: var(--border-radius);
-  background-color: var(--light);
-  color: var(--dark);
+  background-color: var(--bg-white);
 `
 
 const Input = styled.input`
   border: none;
-  background-color: var(--light);
+  background-color: var(--bg-white);
   font-size: var(--text-md);
   font-weight: 700;
-  color: var(--dark);
 `
 
 const Textarea = styled.textarea`
@@ -55,16 +53,15 @@ const Textarea = styled.textarea`
   border: none;
   padding: 1rem;
   border-radius: var(--border-radius);
-  background-color: var(--light);
+  background-color: var(--bg-white);
   font-family: inherit;
-  color: var(--dark);
 `
 
 const Actions = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 1rem;
-  border-top: 1px solid rgba(var(--dark-rgb), 0.2);
+  border-top: 1px solid var(--bg-separator);
 `
 
 export const TaskDetails = ({ listId, selectedTask }) => {

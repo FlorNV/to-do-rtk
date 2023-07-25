@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteList, selectListById, updateList } from '../redux/lists/listsSlice'
-import { openModal } from '../redux/modal/modalSlice'
+import { openModal, setModalResult } from '../redux/modal/modalSlice'
 
 export const useList = () => {
   const { id } = useParams()
   const listFound = useSelector(selectListById(id))
   const lists = useSelector(state => state.lists)
-  const { showModal, modalResult } = useSelector(state => state.modal)
+  const { isVisibleModal, modalResult } = useSelector(state => state.modal)
   const [list, setList] = useState(null)
   const [isShowInput, setIsShowInput] = useState(false)
   const [isOpenDropdown, setIsOpenDropdown] = useState(false)
@@ -52,10 +52,11 @@ export const useList = () => {
   }, [id, lists])
 
   useEffect(() => {
-    if (!showModal && modalResult === 'confirm') {
+    if (!isVisibleModal && modalResult === 'confirm') {
       dispatch(deleteList(id))
+      dispatch(setModalResult(''))
     }
-  }, [showModal])
+  }, [isVisibleModal])
 
   return {
     list,

@@ -17,8 +17,8 @@ const Label = styled.label`
   align-items: center;
   padding: 0.5rem;
   border-radius: var(--border-radius);
-  background: var(--white);
-  color: var(--dark);
+  background: var(--bg-white);
+  cursor: pointer;
 `
 
 const Icon = styled(AiOutlineSearch)`

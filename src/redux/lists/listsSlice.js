@@ -1,7 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit'
 import { v4 as uuid } from 'uuid'
 
-const initialState = [
+const DEFAULT_STATE = [
   {
     id: 'inbox',
     title: 'Tasks',
@@ -9,12 +9,12 @@ const initialState = [
   },
   {
     id: '1',
-    title: 'List 1',
+    title: 'Test List',
     taskList: [
       {
         id: '1',
         title: 'task 1',
-        description: 'Labore mollit nulla officia minim aute irure. Veniam anim sint culpa cupidatat velit. Id velit labore quis est. Id quis tempor non culpa amet elit id eiusmod aliqua enim.',
+        description: 'task 1 description',
         completed: false,
         important: true
       },
@@ -31,24 +31,16 @@ const initialState = [
         description: 'task 3 description',
         completed: false,
         important: true
-      },
-      {
-        id: '4',
-        title: 'task 4',
-        description: 'task 4 description',
-        completed: false,
-        important: false
-      },
-      {
-        id: '5',
-        title: 'task 5',
-        description: 'task 5 description',
-        completed: false,
-        important: false
       }
     ]
   }
 ]
+
+const initialState = (() => {
+  const persistedState = window.localStorage.getItem('redux_state')
+  if (persistedState) return JSON.parse(persistedState)
+  return DEFAULT_STATE
+})()
 
 export const listsSlice = createSlice({
   name: 'lists',

@@ -8,9 +8,6 @@ import { addList } from '../redux/lists/listsSlice'
 
 const Form = styled.form`
   width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
   padding: 1rem 2rem;
   
   &:hover {
@@ -18,30 +15,29 @@ const Form = styled.form`
   }
 `
 
+const Label = styled.label`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.2rem;
+  padding-left: 4px;
+  cursor: pointer;
+  color: var(--font-color-cyan);
+`
+
 const Input = styled.input`
   flex: 1;
   background-color: transparent;
   border: none;
   font-size: var(--text-md);
-  color: var(--dark);
   
   &::placeholder {
-    color: #5b94d4;
+    color: var(--font-color-cyan);
   }
 
   &:focus::placeholder {
-    color: var(--dark);
+    color: var(--font-color-primary);
   }
-`
-
-const Button = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  margin-left: 4px;
-  line-height: 0;
-  color: #5b94d4;
-  cursor: pointer;
 `
 
 export const NewListForm = () => {
@@ -50,14 +46,10 @@ export const NewListForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleClick = () => inputListRef.current.focus()
-
   const handleAddList = (event) => {
     event.preventDefault()
     const title = inputListRef.current.value || 'Untitled list'
     dispatch(addList({ title }))
-    inputListRef.current.value = ''
-    inputListRef.current.blur()
   }
 
   useEffect(() => {
@@ -68,15 +60,15 @@ export const NewListForm = () => {
 
   return (
     <Form onSubmit={handleAddList}>
-      <Button type='button' onClick={handleClick}>
+      <Label>
         <IconStyled as={AiOutlinePlus} />
-      </Button>
-      <Input
-        ref={inputListRef}
-        type='text'
-        name='title'
-        placeholder='New list'
-      />
+        <Input
+          ref={inputListRef}
+          type='text'
+          name='title'
+          placeholder='New list'
+        />
+      </Label>
     </Form>
   )
 }

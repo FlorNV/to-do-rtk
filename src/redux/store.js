@@ -5,6 +5,11 @@ import filteredTasksReducer from './tasks/fiteredTasksSlice'
 import modalReducer from './modal/modalSlice'
 import menuReducer from './modal/menuSlice'
 
+const localStorageMiddleware = (store) => (next) => (action) => {
+  next(action)
+  window.localStorage.setItem('redux_state', JSON.stringify(store.getState().lists))
+}
+
 export const store = configureStore({
   reducer: {
     tasks: taskReducer,
@@ -12,5 +17,6 @@ export const store = configureStore({
     filteredTasks: filteredTasksReducer,
     modal: modalReducer,
     menu: menuReducer
-  }
+  },
+  middleware: [localStorageMiddleware]
 })

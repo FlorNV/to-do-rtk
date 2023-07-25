@@ -1,17 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&display=swap');
 
 :root {
-  --primary: #273469;
-  --secondary: #C5D5EA;
-  --light: #FAFAFF;
-  --white: #FFFFFF;
-  --dark: #30343F;
-  --green: #BAFF29;
+  --bg-primary: #9d4edd;
+  --bg-secondary: #F4F4F4;
+  --bg-tertiary: #e9ecef;
+  --bg-white: #FFFFFF;
+
+  --bg-active-link: #ced4da;
+  --bg-hover-primary: #e9ecef;
+  --bg-separator: #ced4da;
 
   --primary-rgb: 39, 52, 105;
   --dark-rgb: 48, 52, 63;
   --light-rgb: 250, 250, 255;
   --white-rgb: 255, 255, 255;
+
+  --font-color-primary: #292827;
+  --font-color-secondary: #7b2cbf;
+  --font-color-tertiary: #FFFFFF;
+  --font-color-cyan: #5b94d4;
+  --font-color-hover: #adb5bd;
 
   --border-radius: 6px;
 
@@ -32,8 +40,8 @@
 
 body {
   margin: 0;
-  background-color: var(--secondary);
-  color: var(--dark);
+  background-color: var(--bg-secondary);
+  color: var(--font-color-primary);
 }
 
 #root {
@@ -71,10 +79,14 @@ body *::-webkit-scrollbar-thumb:hover {
 
 a {
   font-weight: 400;
-  color: var(--dark);
+  color: var(--font-color-primary);
   text-decoration: inherit;
 }
 
 *:focus {
   outline: none;
+}
+
+input, textarea, label, button {
+  color: var(--font-color-primary);
 }

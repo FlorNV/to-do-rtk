@@ -11,7 +11,7 @@ const Input = styled.input`
   font-size: var(--text-xxl);
   min-width: 20px;
   background-color: transparent;
-  border: 1px solid var(--dark);
+  border: 1px solid var(--bg-primary);
   border-radius: var(--border-radius);
 `
 

@@ -21,7 +21,7 @@ const Menu = styled.div`
   top: 30px;
   z-index: 3;
   font-size: var(--text-md);
-  background-color: var(--light);
+  background-color: var(--bg-white);
   border-radius: var(--border-radius);
   box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.2);
   ${({ show }) => show
@@ -39,7 +39,7 @@ const Menu = styled.div`
   & > h5 {
     text-align: center;
     padding: 12px;
-    border-bottom: 1px solid rgba(var(--dark-rgb), 0.2);
+    border-bottom: 1px solid var(--bg-separator);
   }
 `
 
@@ -89,7 +89,7 @@ export const Dropdown = ({
   }, [])
 
   return (
-    <Menu ref={menuRef} show={isOpenDropdown} onClick={(e) => e.stopPropagation()}>
+    <Menu ref={menuRef} show={isOpenDropdown} onClick={(event) => event.stopPropagation()}>
       <h5>List options</h5>
       <Options>
         <li>

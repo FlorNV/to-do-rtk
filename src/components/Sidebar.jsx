@@ -27,8 +27,8 @@ const Container = styled.div`
   width: 30%;
   min-width: 200px;
   max-width: 300px;
-  background-color: var(--light);
-  color: var(--dark);
+  background-color: var(--bg-white);
+  color: var(--font-color-primary);
   box-shadow: 4px 0 6px -2px rgba(0, 0, 0, 0.2);
   display: ${({ isVisible }) => isVisible ? 'block' : 'none'};
   position: absolute;
@@ -61,8 +61,8 @@ const Menu = styled.nav`
 
   & a.active {
     font-weight: 600;
-    background-color: rgba(var(--primary-rgb), 0.2);
-    border-color: var(--primary);
+    background-color: var(--bg-active-link);
+    border-color: var(--bg-primary);
   }
 `
 
@@ -78,12 +78,15 @@ const LinkStyled = styled(NavLink)`
   display: flex;
   align-items: center;
   gap: 1.2rem;
+  transition-property: background-color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in;
   ${({ animate }) => animate && css`
   animation: ${fadeIn} 500ms ease-in-out;
   `}
 
   &:hover {
-    background-color: rgba(var(--primary-rgb), 0.1);
+    background-color: var(--bg-hover-primary);
   }
 
   & span {
@@ -94,12 +97,12 @@ const LinkStyled = styled(NavLink)`
 const Separator = styled.div`
   height: 1px;
   margin: 10px 20px;
-  background-color: rgba(var(--dark-rgb), 0.2);
+  background-color: var(--bg-separator);
 `
 
 export const Sidebar = () => {
   const dispatch = useDispatch()
-  const showMenu = useSelector(state => state.menu.showMenu)
+  const isVisibleMenu = useSelector(state => state.menu.isVisibleMenu)
   const lists = useSelector(state => state.lists)
   const [inbox, ...listsWithoutInbox] = lists
   const importantList = useSelector(selectImportantTasks())
@@ -112,10 +115,10 @@ export const Sidebar = () => {
   }, [lists.length])
 
   return (
-    <Container isVisible={showMenu}>
+    <Container isVisible={isVisibleMenu}>
       <Title>
         Menu
-        <ButtonIcon onClick={toggleButton}>
+        <ButtonIcon black onClick={toggleButton}>
           <AiOutlineMenu />
         </ButtonIcon>
       </Title>
